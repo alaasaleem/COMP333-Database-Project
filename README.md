@@ -4,7 +4,7 @@ The system allows customers to easily book tickets online, improving their exper
 ## ER Model (Chen notation)
 ![ER Model](DataBaseERD.png)
 
-## Collaborators
+## Team Members
 * Lama Abdel Muhsen-1201138
 * Hala Gholeh-1201418
 * Alaa Saleem-1200001
