@@ -1,7 +1,7 @@
 # Booking System for Palestine Tower Cinemas
 The system allows customers to easily book tickets online, improving their experience and providing valuable insights for the cinema's management.
 
-### ER Model
+## ER Model
 ![ER Model](DataBaseERD.png)
 
 ## Contributors:
