@@ -37,12 +37,13 @@ def login():
         return render_template('login.html')
 
 
-# Define a route for the registration page
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
+        first_name = request.form['first_name']
+        last_name = request.form['last_name']  # Add this line
 
         # Check if the user already exists in the database
         cursor = db.cursor()
@@ -55,8 +56,8 @@ def register():
             return render_template('register.html', error=error)
         else:
             # Insert the new user into the database
-            insert_query = "INSERT INTO user (email, password) VALUES (%s, %s)"
-            cursor.execute(insert_query, (email, password))
+            insert_query = "INSERT INTO user (email, password, first_name, last_name) VALUES (%s, %s, %s, %s)"  # Modify the query
+            cursor.execute(insert_query, (email, password, first_name, last_name))  # Add first_name and last_name to the values
             db.commit()
 
             # Redirect to a success page or perform further actions
