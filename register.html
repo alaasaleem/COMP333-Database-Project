@@ -2,23 +2,99 @@
 <html>
 <head>
     <title>Register</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 400px;
+        }
+
+        .card h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #5c6ac4;
+        }
+
+        .card form {
+            margin-bottom: 20px;
+        }
+
+        .card label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        .card input[type="text"],
+        .card input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .card input[type="submit"] {
+            background-color: #5c6ac4;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .card input[type="submit"]:hover {
+            background-color: #4856a6;
+        }
+
+        .card p {
+            text-align: center;
+            color: #666;
+        }
+
+        .card p a {
+            color: #5c6ac4;
+            font-weight: bold;
+        }
+
+        .card p a:hover {
+            color: #4856a6;
+        }
+    </style>
 </head>
 <body>
-    <h2>Register</h2>
-    {% if error %}
-        <p style="color: red;">{{ error }}</p>
-    {% endif %}
-    <form method="POST" action="/register">
-        <label>Email:</label>
-        <input type="text" name="email" required><br><br>
-        <label>Password:</label>
-        <input type="password" name="password" required><br><br>
-        <label>First Name:</label>
-        <input type="text" name="first_name" required><br><br>  <!-- Add this line -->
-        <label>Last Name:</label>
-        <input type="text" name="last_name" required><br><br>  <!-- Add this line -->
-        <input type="submit" value="Register">
-    </form>
-    <p>Already have an account? <a href="/">Login here</a></p>
+    <div class="container">
+        <div class="card">
+            <h2>Register</h2>
+            <form method="POST" action="/register">
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <label for="first_name">First Name:</label>
+                <input type="text" id="first_name" name="first_name" required>
+                <label for="last_name">Last Name:</label>
+                <input type="text" id="last_name" name="last_name" required>
+                <input type="submit" value="Register">
+            </form>
+            <p>Already have an account? <a href="/">Login here</a></p>
+        </div>
+    </div>
 </body>
 </html>
