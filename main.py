@@ -8,7 +8,7 @@ db = mysql.connector.connect(
     host="localhost",
     port=3306,
     user="root",
-    password="DBproject2023!",
+    password="lama.abothaher",
     database="bookingsystem"
 )
 
@@ -22,13 +22,19 @@ def login():
 
         # Validate the login credentials in your database
         cursor = db.cursor()
-        query = "SELECT * FROM user WHERE email = %s AND password = %s"
+        query = "SELECT position FROM user WHERE email= %s AND password = %s"
         cursor.execute(query, (email, password))
         user = cursor.fetchone()
 
+
         if user:
-            # Redirect to a success page or perform further actions
-            return redirect('/success')
+            position = user[0]
+            if position=='admin':
+                return render_template('admin.html')
+            elif position == 'operator':
+                return render_template('operator.html')
+            elif position == 'cutomer':
+                return render_template('customer.html')
         else:
             # Display an error message on the login page
             error = 'Invalid email or password. Please try again.'
