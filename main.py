@@ -4,11 +4,11 @@ import mysql.connector
 app = Flask(__name__)
 
 # Configure your MySQL database connection
-db = mysql.connector.connect(
-    host="localhost",
-    port=3306,
+db = mysql.connector.connect(  
+    host="localhost",           
+    port=3306,                  
     user="root",
-    password="lama.abothaher",
+    password="lama.abothaher", #Note From Alaa to (everyone - Lama): Please make sure to replace "lama.abothaher" with your actual password before executing the code
     database="bookingsystem"
 )
 
