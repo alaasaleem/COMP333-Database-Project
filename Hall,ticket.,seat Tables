@@ -1,0 +1,9 @@
+Create Table Ticket(TicketNo INT PRIMARY KEY NOT NULL,TicketPrice INT, HallNO INT, SeatNo INT, ReservationStatus varchar(50),
+foreign key (HallNo) references Hall(HallNo),
+foreign key (SeatNo) references Seat(SeatNo));
+
+Create Table Hall(HallNo int primary key not null, Capacity int not null);
+Create Table Seat(SeatNo int  not null, ReservationStatus varchar(50),HallNO INT not null,
+foreign key (HallNo) references Hall(HallNo),
+primary key(HallNo,SeatNo));
+#ticket table will have some changes in future
