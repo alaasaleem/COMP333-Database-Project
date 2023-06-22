@@ -28,7 +28,7 @@ def login():
         user = cursor.fetchone()
 
         if user:
-            role = 'user'
+            return redirect('/user')
         else:
             # Check if the user exists in the admin table
             query = "SELECT * FROM admin WHERE email = %s AND password = %s"
@@ -36,7 +36,7 @@ def login():
             admin = cursor.fetchone()
 
             if admin:
-                role = 'admin'
+                return redirect('/admin')
             else:
                 # Check if the user exists in the operator table
                 query = "SELECT * FROM operator WHERE email = %s AND password = %s"
@@ -44,19 +44,11 @@ def login():
                 operator = cursor.fetchone()
 
                 if operator:
-                    role = 'operator'
+                    return redirect('/operator')
                 else:
                     # If the user is not found, show an error
                     error = 'Invalid email or password. Please try again.'
                     return render_template('login.html', error=error)
-
-        # Redirect to the appropriate page based on the role
-        if role == 'user':
-            return redirect('/user')
-        elif role == 'operator':
-            return redirect('/operator')
-        elif role == 'admin':
-            return redirect('/admin')
 
     else:
         error = None
@@ -79,11 +71,6 @@ def operator():
 def admin():
     return render_template('admin.html')
 
-# Define a route for the invalid login page
-@app.route('/invalid')
-def invalid():
-    return render_template('invalid.html')
-
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -102,9 +89,9 @@ def register():
             error = 'User with this email already exists. Please try a different email.'
             return render_template('register.html', error=error)
 
-        # Insert the new user into the user table with the role 'user'
-        insert_query = "INSERT INTO user (email, password, first_name, last_name, role) VALUES (%s, %s, %s, %s, %s)"
-        cursor.execute(insert_query, (email, password, first_name, last_name, 'user'))
+        # Insert the new user into the user table
+        insert_query = "INSERT INTO user (email, password, first_name, last_name) VALUES (%s, %s, %s, %s)"
+        cursor.execute(insert_query, (email, password, first_name, last_name))
         db.commit()
 
         # Redirect to a success page or perform further actions
