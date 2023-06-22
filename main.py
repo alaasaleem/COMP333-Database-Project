@@ -1,16 +1,5 @@
 from flask import Flask, render_template, request, redirect
-import mysql.connector
-
-app = Flask(__name__)
-
-# Configure your MySQL database connection
-db = mysql.connector.connect(
-    host="localhost",
-    port=3306,
-    user="root",
-    password="DBproject2023!",
-    database="bookingsystem"
-)
+from login_register import app, validate_login, register_user, success
 
 # Define a route for the login page
 @app.route('/', methods=['GET', 'POST'])
@@ -19,36 +8,17 @@ def login():
         email = request.form['email']
         password = request.form['password']
 
-        # Validate the login credentials in your database
-        cursor = db.cursor()
+        role = validate_login(email, password)
 
-        # Check if the user exists in the user table
-        query = "SELECT * FROM user WHERE email = %s AND password = %s"
-        cursor.execute(query, (email, password))
-        user = cursor.fetchone()
-
-        if user:
+        if role == 'user':
             return redirect('/user')
+        elif role == 'operator':
+            return redirect('/operator')
+        elif role == 'admin':
+            return redirect('/admin')
         else:
-            # Check if the user exists in the admin table
-            query = "SELECT * FROM admin WHERE email = %s AND password = %s"
-            cursor.execute(query, (email, password))
-            admin = cursor.fetchone()
-
-            if admin:
-                return redirect('/admin')
-            else:
-                # Check if the user exists in the operator table
-                query = "SELECT * FROM operator WHERE email = %s AND password = %s"
-                cursor.execute(query, (email, password))
-                operator = cursor.fetchone()
-
-                if operator:
-                    return redirect('/operator')
-                else:
-                    # If the user is not found, show an error
-                    error = 'Invalid email or password. Please try again.'
-                    return render_template('login.html', error=error)
+            error = 'Invalid email or password. Please try again.'
+            return render_template('login.html', error=error)
 
     else:
         error = None
@@ -79,33 +49,16 @@ def register():
         first_name = request.form['first_name']
         last_name = request.form['last_name']
 
-        # Check if the email already exists in the user table
-        cursor = db.cursor()
-        query = "SELECT * FROM user WHERE email = %s"
-        cursor.execute(query, (email,))
-        existing_user = cursor.fetchone()
+        error = register_user(email, password, first_name, last_name)
 
-        if existing_user:
-            error = 'User with this email already exists. Please try a different email.'
+        if error:
             return render_template('register.html', error=error)
-
-        # Insert the new user into the user table
-        insert_query = "INSERT INTO user (email, password, first_name, last_name) VALUES (%s, %s, %s, %s)"
-        cursor.execute(insert_query, (email, password, first_name, last_name))
-        db.commit()
 
         # Redirect to a success page or perform further actions
         return redirect('/success')
 
     else:
         return render_template('register.html')
-
-
-# Define a route for the success page
-@app.route('/success')
-def success():
-    return "Login or registration successful!"
-
 
 if __name__ == '__main__':
     app.run(debug=True)
