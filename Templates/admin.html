@@ -16,53 +16,115 @@
       background-color: #f1f1f1;
     }
 
-    /* Navigation Styles */
-    nav {
-      background-color: #333;
-      color: #fff;
-      padding: 10px;
+    .bgimage {
+      background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url("BG.jpg");
+      background-size: 100%;
+      width: 100%;
+      height: 100vh;
+    }
+
+    .menu {
+      width: 100%;
+      height: 100px;
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .leftmenu {
+      width: 20%;
+      line-height: 100px;
+      float: left;
+    }
+
+    .leftmenu img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      margin-left: 20px;
+      margin-top: 20px;
+    }
+
+    .leftmenu h4 {
+      padding-left: 10px;
+      font-weight: bold;
+      color: white;
+      font-size: 22px;
+      font-family: 'montserrat', sans-serif;
+    }
+
+    .rightmenu {
+      width: 60%;
+      height: 100px;
+      float: right;
+    }
+
+    .rightmenu ul {
+      margin-left: 200px;
+    }
+
+    .rightmenu ul li {
+      display: inline-block;
+      font-family: 'montserrat', sans-serif;
+      list-style: none;
+      font-size: 15px;
+      color: white;
+      font-weight: bold;
+      line-height: 100px;
+      margin-left: 40px;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .rightmenu ul li:hover {
+      color: #00ccff;
+    }
+
+    #firstlist {
+      color: #00ccff;
+    }
+
+    .text {
+      width: 100%;
+      margin-top: 185px;
+      text-transform: uppercase;
       text-align: center;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      color: white;
     }
 
-    nav ul {
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
+    .text h4 {
+      font-size: 14px;
+      font-family: 'open sans', sans-serif;
     }
 
-    nav ul li {
-      margin: 0 15px;
+    .text h1 {
+      font-size: 62px;
+      font-family: 'montserrat', sans-serif;
+      font-weight: 700;
+      margin: 14px 0px;
     }
 
-    nav ul li a {
-      color: #fff;
-      text-decoration: none;
-      padding: 10px;
-      border-radius: 5px;
-      transition: background-color 0.3s ease;
+    .text h3 {
+      font-size: 15px;
+      font-family: 'open sans', sans-serif;
     }
 
-    nav ul li a:hover {
-      background-color: #555;
+    .btn {
+      background-color: rgba(255, 255, 255, 0.164);
+      color: white;
+      font-family: 'montserrat', sans-serif;
+      border: none;
+      font-size: 15px;
+      font-weight: bold;
+      text-transform: uppercase;
+      line-height: 40px;
+      width: 150px;
+      margin-top: 25px;
+      border: 3px solid white;
+      cursor: pointer;
     }
 
-    /* Page Content Styles */
-    .container {
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 20px;
-      background-color: #fff;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      border-radius: 5px;
-    }
-
-    h1 {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #555;
+    .btn:hover {
+      background-color: white;
+      color: black;
     }
 
     /* Hide/Show Content */
@@ -73,11 +135,22 @@
     .content.active {
       display: block;
     }
+
+    .container {
+      margin: 50px auto;
+      width: 80%;
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
+    }
+
+    .container h2 {
+      margin-bottom: 20px;
+    }
   </style>
   <script>
-    // JavaScript to handle content switching
     window.onload = function() {
-      var navLinks = document.querySelectorAll('nav ul li a');
+      var navLinks = document.querySelectorAll('.rightmenu ul li');
       var contentSections = document.querySelectorAll('.content');
 
       // Add click event listeners to each navigation link
@@ -100,48 +173,55 @@
         });
       });
 
-      // Set the Admin Home as the active section by default
-      var adminHomeSection = document.getElementById('admin');
-      adminHomeSection.classList.add('active');
+      // Set the Home as the active section by default
+      var homeSection = document.getElementById('home');
+      homeSection.classList.add('active');
     };
   </script>
 </head>
 <body>
-  <nav>
-    <ul>
-      <li><a href="#" data-target="admin">Home</a></li>
-      <li><a href="#" data-target="movies">Movies</a></li>
-      <li><a href="#" data-target="operators">Operators</a></li>
-      <li><a href="#" data-target="users">Users</a></li>
-      <li><a href="#" data-target="reports">Reports</a></li>
-    </ul>
-  </nav>
+  <div class="bgimage">
+    <div class="menu">
+      <div class="leftmenu">
+        <img src="https://scontent.ftlv11-1.fna.fbcdn.net/v/t39.30808-6/327039226_911448670208477_2572797240868318650_n.jpg?_nc_cat=107&cb_f2e=test&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=5Sl5v1-889sAX-1ALSu&_nc_ht=scontent.ftlv11-1.fna&oh=00_AfDN_umwoFXkv-8rgT3qYrFSWDvHDakKIzcTrNhKtBOtug&oe=649B82AB">
+      </div>
+      <div class="rightmenu">
+        <ul>
+          <li data-target="home" id="firstlist">Home</li>
+          <li data-target="users">Users</li>
+          <li data-target="operators">Operators</li>
+          <li data-target="reports">Reports</li>
+        </ul>
+      </div>
+    </div>
+    <div class="text">
+      <h1>Palestine Tower Cinemas</h1>
+      <h3>THE FIRST MOVIE MULTIPLEX IN PALESTINE</h3>
+    </div>
+  </div>
+
+  <!-- /* coding with nick */ -->
+
   <div class="container">
-    <h1>Welcome to the Admin Page</h1>
-    <div id="admin" class="content">
-      <!-- Admin Home Content -->
-      <h2>Admin Home</h2>
-      <!-- Rest of the admin home content goes here -->
-    </div>
-    <div id="movies" class="content">
-      <!-- Movies Info and Permissions -->
-      <h2>Movies</h2>
-      <!-- Rest of the movies-related content goes here -->
-    </div>
-    <div id="operators" class="content">
-      <!-- Operators Info and Permissions -->
-      <h2>Operators</h2>
-      <!-- Rest of the operators-related content goes here -->
+    <div id="home" class="content active">
+      <!-- Home Content -->
+      <h2>Home</h2>
+      <!-- Rest of the home content goes here -->
     </div>
     <div id="users" class="content">
-      <!-- Users Info and Permissions -->
+      <!-- Users Content -->
       <h2>Users</h2>
-      <!-- Rest of the users-related content goes here -->
+      <!-- Rest of the users content goes here -->
+    </div>
+    <div id="operators" class="content">
+      <!-- Operators Content -->
+      <h2>Operators</h2>
+      <!-- Rest of the operators content goes here -->
     </div>
     <div id="reports" class="content">
-      <!-- Reports Info and Permissions -->
+      <!-- Reports Content -->
       <h2>Reports</h2>
-      <!-- Rest of the reports-related content goes here -->
+      <!-- Rest of the reports content goes here -->
     </div>
   </div>
 </body>
