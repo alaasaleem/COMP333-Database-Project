@@ -1,10 +1,148 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Admin Page</title>
+  <title>Admin Website</title>
+  <style>
+    /* Basic CSS Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Body Styles */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f1f1f1;
+    }
+
+    /* Navigation Styles */
+    nav {
+      background-color: #333;
+      color: #fff;
+      padding: 10px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    nav ul li {
+      margin: 0 15px;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      padding: 10px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      background-color: #555;
+    }
+
+    /* Page Content Styles */
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #555;
+    }
+
+    /* Hide/Show Content */
+    .content {
+      display: none;
+    }
+
+    .content.active {
+      display: block;
+    }
+  </style>
+  <script>
+    // JavaScript to handle content switching
+    window.onload = function() {
+      var navLinks = document.querySelectorAll('nav ul li a');
+      var contentSections = document.querySelectorAll('.content');
+
+      // Add click event listeners to each navigation link
+      navLinks.forEach(function(link) {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+
+          // Remove active class from all navigation links and content sections
+          navLinks.forEach(function(navLink) {
+            navLink.classList.remove('active');
+          });
+          contentSections.forEach(function(section) {
+            section.classList.remove('active');
+          });
+
+          // Add active class to the clicked link and corresponding content section
+          link.classList.add('active');
+          var targetSection = document.getElementById(link.dataset.target);
+          targetSection.classList.add('active');
+        });
+      });
+
+      // Set the Admin Home as the active section by default
+      var adminHomeSection = document.getElementById('admin');
+      adminHomeSection.classList.add('active');
+    };
+  </script>
 </head>
 <body>
-    <h1>Welcome, Admin!</h1>
-    <p>This is the admin page.</p>
+  <nav>
+    <ul>
+      <li><a href="#" data-target="admin">Home</a></li>
+      <li><a href="#" data-target="movies">Movies</a></li>
+      <li><a href="#" data-target="operators">Operators</a></li>
+      <li><a href="#" data-target="users">Users</a></li>
+      <li><a href="#" data-target="reports">Reports</a></li>
+    </ul>
+  </nav>
+  <div class="container">
+    <h1>Welcome to the Admin Page</h1>
+    <div id="admin" class="content">
+      <!-- Admin Home Content -->
+      <h2>Admin Home</h2>
+      <!-- Rest of the admin home content goes here -->
+    </div>
+    <div id="movies" class="content">
+      <!-- Movies Info and Permissions -->
+      <h2>Movies</h2>
+      <!-- Rest of the movies-related content goes here -->
+    </div>
+    <div id="operators" class="content">
+      <!-- Operators Info and Permissions -->
+      <h2>Operators</h2>
+      <!-- Rest of the operators-related content goes here -->
+    </div>
+    <div id="users" class="content">
+      <!-- Users Info and Permissions -->
+      <h2>Users</h2>
+      <!-- Rest of the users-related content goes here -->
+    </div>
+    <div id="reports" class="content">
+      <!-- Reports Info and Permissions -->
+      <h2>Reports</h2>
+      <!-- Rest of the reports-related content goes here -->
+    </div>
+  </div>
 </body>
 </html>
