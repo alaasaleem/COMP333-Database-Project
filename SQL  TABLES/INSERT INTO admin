@@ -1,0 +1,2 @@
+INSERT INTO admin (email, first_name, last_name, password)
+VALUES ('alaa.admin@gmail.com', 'Alaa', 'Saleem', 'IMADMIN');
