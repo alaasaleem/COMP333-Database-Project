@@ -63,4 +63,5 @@ def register_user(email, password, first_name, last_name):
 # Define a route for the success page
 @app.route('/success')
 def success():
-    return "Login or registration successful!"
+    # Render the user.html template
+    return render_template('user.html')
