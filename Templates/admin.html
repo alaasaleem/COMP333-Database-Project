@@ -122,6 +122,38 @@
       margin-bottom: 20px;
     }
 
+    /* Dropdown List Styles */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 200px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      padding: 12px 16px;
+      z-index: 2;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    /* Improved Dropdown Content Styles */
+    .dropdown-content p {
+      margin: 8px 0;
+      cursor: pointer;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .dropdown-content p:hover {
+      color: #00ccff;
+    }
+
     /* Keyframe Animations */
     @keyframes fade-in {
       from {
@@ -184,40 +216,43 @@
       <div class="rightmenu">
         <ul>
           <li data-target="home" id="firstlist">Home</li>
-          <li data-target="users">Users</li>
-          <li data-target="operators">Operators</li>
-          <li data-target="reports">Reports</li>
+          <li class="dropdown">
+            <span>Users</span>
+            <div class="dropdown-content">
+              <p>Delete User</p>
+              <p>List Users for a Movie</p>
+              <p>List Users for a Specific Day</p>
+              <p>List Users who Booked but Didn't Attend</p>
+              <p>List Users who Came More than Once</p>
+              <p>Search for a User by ID</p>
+            </div>
+          </li>
+          <li class="dropdown">
+            <span>Operators</span>
+            <div class="dropdown-content">
+              <p>Delete Operator</p>
+              <p>Update an Operator Info</p>
+              <p>Add Operator</p>
+              <p>List Operators with Their Info</p>
+              <p>Search for an Operator by ID</p>
+            </div>
+          </li>
+          <li class="dropdown">
+            <span>Reports</span>
+            <div class="dropdown-content">
+              <p>Reports
+                 History</p>
+              <p>Generate
+                 Report</p>
+            </div>
+          </li>
         </ul>
       </div>
     </div>
     <div class="text">
-      <h1>Palestine Tower Cinemas</h1>
-      <h3>THE FIRST MOVIE MULTIPLEX IN PALESTINE</h3>
-    </div>
-  </div>
-
-  <!-- /* coding with nick */ -->
-
-  <div class="container">
-    <div id="home" class="content active">
-      <!-- Home Content -->
-      <h2>Home</h2>
-      <!-- Rest of the home content goes here -->
-    </div>
-    <div id="users" class="content">
-      <!-- Users Content -->
-      <h2>Users</h2>
-      <!-- Rest of the users content goes here -->
-    </div>
-    <div id="operators" class="content">
-      <!-- Operators Content -->
-      <h2>Operators</h2>
-      <!-- Rest of the operators content goes here -->
-    </div>
-    <div id="reports" class="content">
-      <!-- Reports Content -->
-      <h2>Reports</h2>
-      <!-- Rest of the reports content goes here -->
+      <h3>WELCOME TO</h3>
+      <h1>Palestine Tower Cinemas WEB SITE</h1>
+      <h3>ADMIN PANEL</h3>
     </div>
   </div>
 </body>
