@@ -212,11 +212,13 @@
           targetSection.classList.add('active');
         });
       });
+    });
 
-      // Set the Home as the active section by default
+    // Set the Home as the active section by default
+    window.onload = function() {
       var homeSection = document.getElementById('home');
       homeSection.classList.add('active');
-    });
+    };
   </script>
 </head>
 <body>
@@ -228,7 +230,7 @@
       </div>
       <div class="rightmenu">
         <ul>
-          <li id="firstlist" data-target="home">Home</li>
+          <li data-target="home">HOME</li>
           <li data-target="users">Users</li>
           <li data-target="movies">Movies</li>
           <li data-target="tickets">Tickets</li>
