@@ -187,13 +187,100 @@
       display: block;
       animation: fade-in 0.5s ease;
     }
+
+    /* Background Images for Pages */
+
+    #users {
+      background-image: url("https://i.pinimg.com/564x/d6/7d/f7/d67df730d88318d709dbc7994e15e9e3.jpg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    #movies {
+      background-image: url("https://i.pinimg.com/564x/d6/7d/f7/d67df730d88318d709dbc7994e15e9e3.jpg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    #tickets {
+      background: url("https://i.pinimg.com/564x/d6/7d/f7/d67df730d88318d709dbc7994e15e9e3.jpg") no-repeat center center fixed;
+      background-size: cover;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      backdrop-filter: blur(10px); /* Adjust the blur level as per your preference */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    #movies .ticket-content {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    #movies .report-text {
+      font-size: 72px;
+      font-family: 'Your Beautiful Font', sans-serif;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+
+
+    #tickets .ticket-content {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    #tickets .report-text {
+      font-size: 72px;
+      font-family: 'Your Beautiful Font', sans-serif;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
   </style>
   <script>
+    // Function to scroll to a specific section
+    function scrollToSection(sectionId) {
+      var section = document.getElementById(sectionId);
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Add click event listeners to each navigation link
     window.addEventListener('DOMContentLoaded', function() {
       var navLinks = document.querySelectorAll('.rightmenu ul li');
       var contentSections = document.querySelectorAll('.content');
 
-      // Add click event listeners to each navigation link
       navLinks.forEach(function(link) {
         link.addEventListener('click', function(e) {
           e.preventDefault();
@@ -210,15 +297,14 @@
           link.classList.add('active');
           var targetSection = document.getElementById(link.dataset.target);
           targetSection.classList.add('active');
+
+          // Scroll to the target section
+          scrollToSection(link.dataset.target);
         });
       });
     });
 
-    // Set the Home as the active section by default
-    window.onload = function() {
-      var homeSection = document.getElementById('home');
-      homeSection.classList.add('active');
-    };
+
   </script>
 </head>
 <body>
@@ -230,7 +316,6 @@
       </div>
       <div class="rightmenu">
         <ul>
-          <li data-target="home">HOME</li>
           <li data-target="users">Users</li>
           <li data-target="movies">Movies</li>
           <li data-target="tickets">Tickets</li>
@@ -239,26 +324,27 @@
     </div>
     <div class="text">
       <h4>Welcome to</h4>
-      <h1>Admin Website</h1>
-      <h3>Manage Your Cinema Easily</h3>
+      <h1>Palestine Tower Cinemas</h1>
+      <h3>Admin Website</h3>
     </div>
-    <div class="container">
-      <div id="home" class="content active">
-        <h2>Home Page Content</h2>
-        <p>This is the home page content. You can have your own content here.</p>
-      </div>
-      <div id="users" class="content">
-        <h2>Users Page Content</h2>
-        <p>This is the users page content. You can have your own content here.</p>
-      </div>
-      <div id="movies" class="content">
-        <h2>Movies Page Content</h2>
-        <p>This is the movies page content. You can have your own content here.</p>
-      </div>
-      <div id="tickets" class="content">
-        <h2>Tickets Page Content</h2>
-        <p>This is the tickets page content. You can have your own content here.</p>
-      </div>
+  </div>
+
+  <div id="users" class="content">
+    <h2>Users Section</h2>
+    <p>This is the users section. Add your content here.</p>
+  </div>
+
+  <div id="movies" class="content">
+    <h2>MOVIES Page Content</h2>
+    <div class="ticket-content">
+      <h1 class="report-text">HI</h1>
+    </div>
+  </div>
+
+  <div id="tickets" class="content">
+    <h2>Tickets Page Content</h2>
+    <div class="ticket-content">
+      <h1 class="report-text">REPORT THIS WEEK</h1>
     </div>
   </div>
 </body>
