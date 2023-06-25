@@ -60,5 +60,16 @@ def register():
     else:
         return render_template('register.html')
 
+
+# Define a route for the operator page
+@app.route('/manage_operator')
+def manage_operator():
+    return render_template('manage_operator.html')
+
+# Define a route for the reports page
+@app.route('/manage_reports')
+def manage_reports():
+    return render_template('manage_reports.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
