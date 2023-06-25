@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
+    <title>LOGIN</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -27,7 +27,7 @@
 
         .card h2 {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 5px;
             color: #000;
         }
 
@@ -94,21 +94,18 @@
         .text h2 {
             color: #000;
             margin-bottom: 1.5rem;
+            font-size: 40px;
+            text-align: left;
         }
 
         .text p {
             color: hsl(217, 10%, 50.8%);
+            text-align: left;
         }
 
         .row {
             display: flex;
             flex-wrap: wrap;
-        }
-
-        .column1,
-        .column2 {
-            flex: 1;
-            padding: 0 10px;
         }
     </style>
 </head>
@@ -116,12 +113,16 @@
     <div class="container">
         <div class="row">
                 <div class="text">
-                    <h2 class="my-5 display-4 fw-bold ls-tight">
-                        Welcome to Palestine Tower Cinemas <br />
-                        <span style="color: #FF0000;">the first movie multiplex in Palestine</span>
+                    <h2>
+                        Welcome to<br /><span style="color: #FF0000;">Palestine Tower Cinemas</span><br />
+                        Book your tickets online now
                     </h2>
-                    <p style="color: hsl(217, 10%, 50.8%)">
-                        Book your tickets online now and experience the best in cinematic entertainment.
+                    <p>
+                        Palestine Tower Cinemas is the first movie multiplex in Palestine,
+                        located in the Palestine Tower building in Al-Bireh.<br />
+                        The cinema offers a diverse range of movies suitable
+                        for all segments of Palestinian society and is equipped
+                        with<br />the latest technology and comfortable 3D viewing glasses.
                     </p>
                 </div>
             </div>
@@ -135,7 +136,7 @@
                         <input type="text" id="email" name="email" required>
                         <label for="password">Password:</label>
                         <input type="password" id="password" name="password" required>
-                        <input type="submit" value="Login">
+                        <input type="submit" value="LOGIN">
                     </form>
                     <p>New user? <a href="/register">Register here</a></p>
                 </div>
