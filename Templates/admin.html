@@ -18,19 +18,6 @@
       background-color: #f1f1f1;
     }
 
-    .bgimage {
-      background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
-        url("https://www.wattan.net/data/image/full/06123103231610767705561477747108.jpg");
-      background-size: cover;
-      width: 100%;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      backdrop-filter: blur(10px); /* Adjust the blur level as per your preference */
-    }
-
     .menu {
       position: fixed;
       top: 0;
@@ -38,264 +25,43 @@
       width: 100%;
       height: 70px;
       background-color: rgba(0, 0, 0, 0.8);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 20px;
       z-index: 1;
     }
 
     .leftmenu {
       display: flex;
       align-items: center;
+      padding: 0 20px;
     }
 
     .leftmenu img {
       width: 60px;
       height: 60px;
       border-radius: 50%;
-      margin-right: 20px;
-    }
-
-    .leftmenu h4 {
-      font-weight: bold;
-      color: white;
-      font-size: 22px;
-      font-family: 'montserrat', sans-serif;
-    }
-
-    .rightmenu ul {
-      display: flex;
-      list-style: none;
-    }
-
-    .rightmenu ul li {
-      font-family: 'montserrat', sans-serif;
-      font-size: 15px;
-      color: white;
-      font-weight: bold;
-      text-transform: uppercase;
-      margin-left: 40px;
       cursor: pointer;
-      transition: color 0.3s ease;
     }
 
-    .rightmenu ul li:hover {
+    .leftmenu a {
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+      margin-left: 20px;
+    }
+
+    .leftmenu a:hover {
       color: gray;
     }
 
-    #firstlist {
-      color: #00ccff;
-    }
-
-    .text {
-      text-transform: uppercase;
-      text-align: center;
-      color: white;
-      margin-top: 100px;
-      animation: fade-in 1s ease;
-    }
-
-    .text h4 {
-      font-size: 14px;
-      font-family: 'open sans', sans-serif;
-    }
-
-    .text h1 {
-      font-size: 62px;
-      font-family: 'montserrat', sans-serif;
-      font-weight: 700;
-      margin: 14px 0px;
-    }
-
-    .text h3 {
-      font-size: 15px;
-      font-family: 'open sans', sans-serif;
-    }
-
-    .container {
-      margin: 150px auto;
-      width: 80%;
-      background-color: #fff;
-      padding: 20px;
-      box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
-      animation: scale-up 0.5s ease;
-    }
-
-    .container h2 {
-      margin-bottom: 20px;
-    }
-
-    /* Dropdown List Styles */
-
-    .dropdown {
-      position: relative;
-      display: inline-block;
-    }
-
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      background-color: #f9f9f9;
-      min-width: 160px;
-      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-      z-index: 1;
-    }
-
-    .dropdown-content a {
-      color: black;
-      padding: 12px 16px;
-      text-decoration: none;
-      display: block;
-      cursor: pointer;
-    }
-
-    .dropdown:hover .dropdown-content {
-      display: block;
-    }
-
-    .rightmenu ul li.active {
-      color: #00ccff;
-    }
-
-    /* Animation Styles */
-
-    @keyframes fade-in {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
-    }
-
-    @keyframes scale-up {
-      from {
-        transform: scale(0.8);
-      }
-      to {
-        transform: scale(1);
-      }
-    }
-
-    /* Hide all content sections except the active one */
-    .content {
-      display: none;
-    }
-
-    .content.active {
-      display: block;
-      animation: fade-in 0.5s ease;
-    }
-
-    /* Background Images for Pages */
-
-
-    #users {
-      background-image: url("https://i.pinimg.com/564x/9a/8b/d5/9a8bd5e07d856159ccde21839e465752.jpg");
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center center;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-    }
-
-    #movies {
-      background-image: url("https://i.pinimg.com/564x/5e/9c/bc/5e9cbc4090f1c13fb4e4e69789086d73.jpg");
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center center;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-    }
-
-
-    #tickets {
-      background: url("https://i.pinimg.com/564x/fa/d5/aa/fad5aa2e7f750e518b08f90280ff070f.jpg") no-repeat center center fixed;
-      background-size: cover;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-    }
-
-    #tickets .ticket-content {
-      text-align: center;
-      margin-top: 50px;
-    }
-
-    #tickets .report-text {
-      font-size: 72px;
-      font-family: 'Your Beautiful Font', sans-serif;
-      color: #333;
-      margin-bottom: 20px;
-    }
-
   </style>
-  <script>
-    // Function to scroll to a specific section
-    function scrollToSection(sectionId) {
-      var section = document.getElementById(sectionId);
-      section.scrollIntoView({ behavior: 'smooth' });
-    }
-
-    // Add click event listeners to each navigation link
-    window.addEventListener('DOMContentLoaded', function() {
-      var navLinks = document.querySelectorAll('.rightmenu ul li');
-      var contentSections = document.querySelectorAll('.content');
-
-      navLinks.forEach(function(link) {
-        link.addEventListener('click', function(e) {
-          e.preventDefault();
-
-          // Remove active class from all navigation links and content sections
-          navLinks.forEach(function(navLink) {
-            navLink.classList.remove('active');
-          });
-          contentSections.forEach(function(section) {
-            section.classList.remove('active');
-          });
-
-          // Add active class to the clicked link and corresponding content section
-          link.classList.add('active');
-          var targetSection = document.getElementById(link.dataset.target);
-          targetSection.classList.add('active');
-
-          // Scroll to the target section
-          scrollToSection(link.dataset.target);
-        });
-      });
-    });
-
-
-  </script>
 </head>
 <body>
-  <div class="bgimage">
-    <div class="menu">
-      <div class="leftmenu">
+  <div class="menu">
+    <div class="leftmenu">
+      <a href="{{ url_for('admin') }}">
         <img src="https://scontent.ftlv11-1.fna.fbcdn.net/v/t39.30808-6/327039226_911448670208477_2572797240868318650_n.jpg?_nc_cat=107&cb_f2e=test&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=5Sl5v1-889sAX-1ALSu&_nc_ht=scontent.ftlv11-1.fna&oh=00_AfDN_umwoFXkv-8rgT3qYrFSWDvHDakKIzcTrNhKtBOtug&oe=649B82AB" alt="Logo">
-        <h4>Palestine Tower Cinemas</h4>
-      </div>
-      <div class="rightmenu">
-        <ul>
-          <li>Users</li>
-          <li>Movies</li>
-          <li>Tickets</li>
-        </ul>
-      </div>
-    </div>
-    <div class="text">
-      <h4>Welcome to</h4>
-      <h1>Palestine Tower Cinemas</h1>
-      <h3>Admin Website</h3>
+      </a>
+      <a href="{{ url_for('manage_reports') }}">Reports</a>
+      <a href="{{ url_for('manage_operator') }}">Operators</a>
     </div>
   </div>
 </body>
