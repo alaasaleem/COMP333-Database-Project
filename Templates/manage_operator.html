@@ -27,12 +27,15 @@
       height: 70px;
       background-color: rgba(0, 0, 0, 0.8);
       z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
     }
 
     .leftmenu {
       display: flex;
       align-items: center;
-      padding: 0 20px;
     }
 
     .leftmenu img {
@@ -53,10 +56,23 @@
       color: gray;
     }
 
+    .rightmenu a {
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+      margin-left: 20px;
+    }
+
+    .rightmenu a:hover {
+      color: gray;
+    }
+
     .button-container {
       display: flex;
+      flex-direction: row;
+      align-items: center;
       justify-content: center;
-      margin-top: 250px; /* Increased margin for lower positioning */
+      margin-top: 250px;
     }
 
     .button {
@@ -82,8 +98,8 @@
       text-align: center;
       font-weight: bold;
       margin-bottom: 10px;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Custom font */
-      font-size: 18px; /* Adjust font size as desired */
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 20px;
     }
 
     .button-description {
@@ -108,6 +124,23 @@
       opacity: 1;
     }
 
+    .back-button {
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+      background-color: black;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+
+    .logout-button {
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
@@ -119,8 +152,10 @@
       <a href="{{ url_for('manage_operator') }}">Operators</a>
       <a href="{{ url_for('manage_reports') }}">Reports</a>
     </div>
+    <div class="rightmenu">
+      <a href="{{ url_for('login') }}" class="logout-button">Logout</a>
+    </div>
   </div>
-
 
   <div class="button-container">
     <div class="button" onclick="window.location.href='delete_operator.html'">
@@ -142,6 +177,8 @@
         and assigned tasks, to create a new operator account.</div>
     </div>
   </div>
+
+  <button onclick="history.back()" class="back-button">Back</button>
 
 </body>
 </html>
