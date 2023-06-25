@@ -15,7 +15,8 @@
 
     body {
       font-family: Arial, sans-serif;
-      background-color: #f1f1f1;
+      background-color: #d3d3d3;
+      margin: 0;
     }
 
     .menu {
@@ -60,15 +61,17 @@
 
     .button {
       width: 300px;
-      height: 150px;
+      height: 200px; /* Increased height for taller buttons */
       background-color: #f1f1f1;
       border-radius: 5px;
       margin: 0 10px;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       transition: background-color 0.3s ease;
+      position: relative; /* Added for positioning description */
     }
 
     .button:hover {
@@ -78,12 +81,29 @@
     .button-text {
       text-align: center;
       font-weight: bold;
+      margin-bottom: 10px;
     }
 
     .button-description {
       font-size: 12px;
-      margin-top: 10px;
       text-align: center;
+      color: hsl(217, 10%, 50.8%);
+      opacity: 0; /* Initially hidden */
+      position: absolute;
+      top: 100%; /* Position below the button */
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: white;
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      transition: opacity 0.3s ease;
+      pointer-events: none; /* Avoids interfering with button clicks */
+      width: 80%; /* Adjust width as per your preference */
+    }
+
+    .button:hover .button-description {
+      opacity: 1; /* Show on hover */
     }
 
   </style>
@@ -94,26 +114,32 @@
       <a href="{{ url_for('admin') }}">
         <img src="https://scontent.ftlv11-1.fna.fbcdn.net/v/t39.30808-6/327039226_911448670208477_2572797240868318650_n.jpg?_nc_cat=107&cb_f2e=test&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=5Sl5v1-889sAX-1ALSu&_nc_ht=scontent.ftlv11-1.fna&oh=00_AfDN_umwoFXkv-8rgT3qYrFSWDvHDakKIzcTrNhKtBOtug&oe=649B82AB" alt="Logo">
       </a>
-          <a href="{{ url_for('manage_operator') }}">Operators</a>
-        <a href="{{ url_for('manage_reports') }}">Reports</a>
+      <a href="{{ url_for('manage_operator') }}">Operators</a>
+      <a href="{{ url_for('manage_reports') }}">Reports</a>
     </div>
   </div>
 
 
   <div class="button-container">
     <div class="button" onclick="window.location.href='delete_operator.html'">
-      <div class="button-text">Delete Operator?</div>
-      <div class="button-description">Delete specific Operator according to ID</div>
+      <div class="button-text">Delete Operator</div>
+      <div class="button-description">Click here to delete a specific operator from the system.
+        Only administrators have permission to perform this action.
+        Deleting an operator will revoke their access and remove them from the system.</div>
     </div>
     <div class="button" onclick="window.location.href='list_operators.html'">
-      <div class="button-text">List Operators?</div>
-      <div class="button-description">List operator according to ID</div>
+      <div class="button-text">List Operators</div>
+      <div class="button-description">Click here to view a list of all operators in the system.
+        This list provides details such as their names, contact information, and assigned tasks.
+        Only administrators can access and manage operators.</div>
     </div>
     <div class="button" onclick="window.location.href='add_operator.html'">
-      <div class="button-text">Add Operator?</div>
-      <div class="button-description">Add operator</div>
+      <div class="button-text">Add Operator</div>
+      <div class="button-description">Click here to add a new operator to the system.
+        Provide the required information, such as name, contact details,
+        and assigned tasks, to create a new operator account.</div>
     </div>
   </div>
+
 </body>
 </html>
-
