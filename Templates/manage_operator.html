@@ -1,1 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Website</title>
+  <style>
+    /* Basic CSS Reset */
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Body Styles */
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f1f1f1;
+    }
+
+    .menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 70px;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 1;
+    }
+
+    .leftmenu {
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+    }
+
+    .leftmenu img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .leftmenu a {
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+      margin-left: 20px;
+    }
+
+    .leftmenu a:hover {
+      color: gray;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 150px;
+    }
+
+    .button {
+      width: 300px;
+      height: 150px;
+      background-color: #f1f1f1;
+      border-radius: 5px;
+      margin: 0 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #e5e5e5;
+    }
+
+    .button-text {
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .button-description {
+      font-size: 12px;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="menu">
+    <div class="leftmenu">
+      <a href="{{ url_for('admin') }}">
+        <img src="https://scontent.ftlv11-1.fna.fbcdn.net/v/t39.30808-6/327039226_911448670208477_2572797240868318650_n.jpg?_nc_cat=107&cb_f2e=test&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=5Sl5v1-889sAX-1ALSu&_nc_ht=scontent.ftlv11-1.fna&oh=00_AfDN_umwoFXkv-8rgT3qYrFSWDvHDakKIzcTrNhKtBOtug&oe=649B82AB" alt="Logo">
+      </a>
+          <a href="{{ url_for('manage_operator') }}">Operators</a>
+        <a href="{{ url_for('manage_reports') }}">Reports</a>
+    </div>
+  </div>
+
+
+  <div class="button-container">
+    <div class="button" onclick="window.location.href='delete_operator.html'">
+      <div class="button-text">Delete Operator?</div>
+      <div class="button-description">Delete specific Operator according to ID</div>
+    </div>
+    <div class="button" onclick="window.location.href='list_operators.html'">
+      <div class="button-text">List Operators?</div>
+      <div class="button-description">List operator according to ID</div>
+    </div>
+    <div class="button" onclick="window.location.href='add_operator.html'">
+      <div class="button-text">Add Operator?</div>
+      <div class="button-description">Add operator</div>
+    </div>
+  </div>
+</body>
+</html>
 
