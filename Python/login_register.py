@@ -45,12 +45,26 @@ def validate_login(email, password):
 def register_user(email, password, first_name, last_name):
     cursor = db.cursor()
 
-    # Check if the email already exists in the user table
+    # Check if the email already exists in the user, admin, or operator tables
     query = "SELECT * FROM user WHERE email = %s"
     cursor.execute(query, (email,))
     existing_user = cursor.fetchone()
 
     if existing_user:
+        return 'User with this email already exists. Please try a different email.'
+
+    query = "SELECT * FROM admin WHERE email = %s"
+    cursor.execute(query, (email,))
+    existing_admin = cursor.fetchone()
+
+    if existing_admin:
+        return 'User with this email already exists. Please try a different email.'
+
+    query = "SELECT * FROM operator WHERE email = %s"
+    cursor.execute(query, (email,))
+    existing_operator = cursor.fetchone()
+
+    if existing_operator:
         return 'User with this email already exists. Please try a different email.'
 
     # Insert the new user into the user table
