@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, redirect
-from login_register import app, validate_login, register_user, success
+from login_register import app, validate_login, register_user
+from delete_operator import find_operator, delete_operator
+
 
 # Define a route for the login page
 @app.route('/', methods=['GET', 'POST'])
@@ -71,20 +73,27 @@ def manage_operator():
 def manage_reports():
     return render_template('manage_reports.html')
 
-@app.route('/delete_operator')
-def delete_operator():
-    # Handle delete operator functionality
-    return render_template('delete_operator.html')
+@app.route('/delete_operator', methods=['GET', 'POST'])
+def delete_operator_route():
+    if request.method == 'POST':
+        search_query = request.form['search_query']
+        operator = find_operator(search_query)
 
-@app.route('/list_operators')
-def list_operators():
-    # Handle list operators functionality
-    return render_template('list_operators.html')
+        if operator:
+            return render_template('delete_operator.html', operators=operator)
+        else:
+            error = 'Operator not found in the database or operator table.'
+            return render_template('delete_operator.html', error=error)
 
-@app.route('/add_operator')
-def add_operator():
-    # Handle add operator functionality
-    return render_template('add_operator.html')
+    else:
+        return render_template('delete_operator.html')
+
+
+@app.route('/delete_operator_confirm', methods=['POST'])
+def delete_operator_confirm():
+    operator_id = request.form['operator_id']
+    delete_operator(operator_id)
+    return redirect('/manage_operator')
 
 if __name__ == '__main__':
     app.run(debug=True)
