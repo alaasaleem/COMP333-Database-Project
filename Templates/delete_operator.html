@@ -140,18 +140,25 @@
       <button type="submit">Search</button>
     </form>
 
-    {% if operators %}
-      <h2>Search Results:</h2>
-      <ul>
-        {% for operator in operators %}
-          <li>{{ operator[1] }} {{ operator[2] }} (ID: {{ operator[0] }})</li>
-        {% endfor %}
-      </ul>
-    {% endif %}
+
+{% if operators %}
+  <h2>Search Results:</h2>
+  <form method="POST" action="/delete_operator_confirm">
+    <ul>
+      {% for operator in operators %}
+        <li>
+          {{ operator[1] }} {{ operator[2] }} (ID: {{ operator[0] }})
+          <input type="hidden" name="operator_id" value="{{ operator[0] }}">
+          <button type="submit">Delete</button>
+        </li>
+      {% endfor %}
+    </ul>
+  </form>
+{% endif %}
+
   </div>
 
   <button onclick="history.back()" class="back-button">Back</button>
 
 </body>
 </html>
-
