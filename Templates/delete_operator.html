@@ -91,6 +91,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      flex-direction: column;
       height: 100vh;
     }
 
@@ -98,6 +99,12 @@
 
     .search-form {
       text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .search-form label {
+      display: block;
+      margin-bottom: 10px;
     }
 
     .search-form input[type="text"] {
@@ -106,15 +113,46 @@
       font-size: 16px;
       margin-right: 10px;
       border: 1px solid #ccc;
+      color: gray;
     }
 
     .search-form button {
       padding: 10px 20px;
       font-size: 16px;
-      background-color: #4CAF50;
+      background-color: black;
       color: white;
       border: none;
       cursor: pointer;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: center;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    li button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: black;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .error-message {
+      color: red;
+      margin-bottom: 10px;
     }
   </style>
 </head>
@@ -133,32 +171,35 @@
   </div>
 
   <div class="form-container">
-    <h1>Delete Operator</h1>
+    <h1 style="text-align: center;">Delete Operator</h1>
 
     <form class="search-form" method="POST" action="/delete_operator">
-      <input type="text" id="search_query" name="search_query" required>
+      <label for="search_query"></label>
+      <input type="text" id="search_query" name="search_query" placeholder="Enter the ID of the operator" required>
       <button type="submit">Search</button>
     </form>
 
+    {% if operators %}
+      <h2>Search Results:</h2>
+      <ul>
+        {% for operator in operators %}
+          <li>
+            {{ operator[1] }} {{ operator[2] }} (ID: {{ operator[0] }})
+            <form method="POST" action="/delete_operator_confirm">
+              <input type="hidden" name="operator_id" value="{{ operator[0] }}">
+              <button type="submit">Delete</button>
+            </form>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
 
-{% if operators %}
-  <h2>Search Results:</h2>
-  <form method="POST" action="/delete_operator_confirm">
-    <ul>
-      {% for operator in operators %}
-        <li>
-          {{ operator[1] }} {{ operator[2] }} (ID: {{ operator[0] }})
-          <input type="hidden" name="operator_id" value="{{ operator[0] }}">
-          <button type="submit">Delete</button>
-        </li>
-      {% endfor %}
-    </ul>
-  </form>
-{% endif %}
-
+    {% if error %}
+      <p class="error-message">{{ error }}</p>
+    {% endif %}
   </div>
 
-  <button onclick="history.back()" class="back-button">Back</button>
+<button onclick="window.location.href='{{ url_for('manage_operator') }}'" class="back-button">Back</button>
 
 </body>
 </html>
