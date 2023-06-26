@@ -14,8 +14,9 @@
     /* Body Styles */
 
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f1f1f1;
+       font-family: Arial, sans-serif;
+       background-color: #d3d3d3; /* Updated background color */
+       margin: 0; /* Added to remove default margin */
     }
 
     .menu {
@@ -26,12 +27,15 @@
       height: 70px;
       background-color: rgba(0, 0, 0, 0.8);
       z-index: 1;
+      display: flex;
+      justify-content: space-between; /* Added to separate left and right menu */
+      align-items: center; /* Added to vertically center the items */
+      padding: 0 20px;
     }
 
     .leftmenu {
       display: flex;
       align-items: center;
-      padding: 0 20px;
     }
 
     .leftmenu img {
@@ -52,6 +56,23 @@
       color: gray;
     }
 
+    .rightmenu a {
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+      margin-left: 20px;
+    }
+
+    .rightmenu a:hover {
+      color: gray;
+    }
+
+    .logout-button {
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
@@ -62,6 +83,9 @@
       </a>
       <a href="{{ url_for('manage_reports') }}">Reports</a>
       <a href="{{ url_for('manage_operator') }}">Operators</a>
+    </div>
+    <div class="rightmenu">
+      <a href="{{ url_for('login') }}" class="logout-button">Logout</a>
     </div>
   </div>
 </body>
