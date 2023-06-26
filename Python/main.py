@@ -71,5 +71,20 @@ def manage_operator():
 def manage_reports():
     return render_template('manage_reports.html')
 
+@app.route('/delete_operator')
+def delete_operator():
+    # Handle delete operator functionality
+    return render_template('delete_operator.html')
+
+@app.route('/list_operators')
+def list_operators():
+    # Handle list operators functionality
+    return render_template('list_operators.html')
+
+@app.route('/add_operator')
+def add_operator():
+    # Handle add operator functionality
+    return render_template('add_operator.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
