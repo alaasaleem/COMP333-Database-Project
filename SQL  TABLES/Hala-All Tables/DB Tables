@@ -29,14 +29,6 @@ CREATE TABLE `bookingsystem`.`seat` (
   `reservation_status` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`seat_number`, `hall_number`),
   FOREIGN KEY (`hall_number`) REFERENCES `hall` (`hall_number`));
-  
-CREATE TABLE `bookingsystem`.`movie` (
-  `movie_code` INT NOT NULL AUTO_INCREMENT,
-  `title` VARCHAR(45) NOT NULL,
-  `genre` VARCHAR(45) NOT NULL,
-  `rating` VARCHAR(45) NOT NULL,
-  `run_time` double NOT NULL,
-  PRIMARY KEY ( `movie_code`));
 
   CREATE TABLE `bookingsystem`.`admin` (
   `Admin_ID` INT NOT NULL AUTO_INCREMENT,
@@ -70,20 +62,27 @@ CREATE TABLE `bookingsystem`.`HallShowtime` (
   FOREIGN KEY (`hall_number`) REFERENCES `hall` (`hall_number`));  
   
   
-CREATE TABLE `bookingsystem`.`MovieShowtime` (
+CREATE TABLE `bookingsystem`.`movie` (
+  `movie_code` VARCHAR(45) NOT NULL,
+  `title` VARCHAR(100) NOT NULL,
+  `genre` VARCHAR(45) NOT NULL,
+  `rating` VARCHAR(45) NOT NULL,
+  `run_time` double NOT NULL,
+  PRIMARY KEY ( `movie_code`));
+  
+  CREATE TABLE `bookingsystem`.`MovieShowtime` (
   `showtime_NO` INT NOT NULL ,
-  `movie_code` INT NOT NULL ,
+  `movie_code`  VARCHAR(45) NOT NULL ,
   PRIMARY KEY (`showtime_NO`, `movie_code`),
   FOREIGN KEY (`showtime_NO`) REFERENCES `show_time` (`showtime_NO`),
   FOREIGN KEY (`movie_code`) REFERENCES `movie` (`movie_code`));  
   
 CREATE TABLE `bookingsystem`.`MovieTicket` (
-  `movie_code` INT NOT NULL ,
+  `movie_code`  VARCHAR(45) NOT NULL ,
   `ticket_No` INT NOT NULL ,
   PRIMARY KEY (`movie_code`, `ticket_No`),
   FOREIGN KEY (`movie_code`) REFERENCES `movie` (`movie_code`),
   FOREIGN KEY (`ticket_No`) REFERENCES `ticket` (`ticket_No`));
-
   
   
   
