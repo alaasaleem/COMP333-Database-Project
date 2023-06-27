@@ -97,11 +97,95 @@
     /* Style the form elements */
 
     .card {
-      background-color: white;
-      padding: 20px;
-      border-radius: 5px;
-      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      width: 400px;
+    }
+
+    .card h2 {
       text-align: center;
+      margin-bottom: 5px;
+      color: #000;
+    }
+
+    .card form {
+      margin-bottom: 20px;
+    }
+
+    .card label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 10px;
+      color: #666;
+    }
+
+    .card input[type="text"],
+    .card input[type="email"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .card input[type="submit"] {
+      background-color: black;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .card input[type="submit"]:hover {
+      background-color: #333;
+    }
+
+    .card a.cancel-button {
+      display: inline-block;
+      background-color: black;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 5px;
+      text-decoration: none;
+      margin-right: 10px;
+    }
+
+    .success-message {
+      color: green;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .error-message {
+      color: red;
+      margin-bottom: 10px;
+    }
+
+    .text {
+      background-color: transparent;
+      padding: 4rem 1rem;
+      text-align: center;
+    }
+
+    .text h2 {
+      color: #000;
+      margin-bottom: 1.5rem;
+      font-size: 40px;
+      text-align: left;
+    }
+
+    .text p {
+      color: hsl(217, 10%, 50.8%);
+      text-align: left;
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
     }
 
     .search-form {
@@ -156,9 +240,13 @@
       cursor: pointer;
     }
 
-    .error-message {
-      color: red;
-      margin-bottom: 10px;
+    .save-button {
+      background-color: black;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -178,32 +266,42 @@
 
   <div class="form-container">
     <div class="card">
-      <h1 style="text-align: center;">Delete Operator</h1>
+      <form method="POST" action="/update_operator">
+        <h2>Update Operator</h2>
 
-      <form class="search-form" method="POST" action="/delete_operator">
-        <label for="search_query"></label>
-        <input type="text" id="search_query" name="search_query" placeholder="Enter the ID of the operator" required>
-        <button type="submit">Search</button>
+        {% if success_message %}
+          <div class="success-message">{{ success_message }}</div>
+        {% endif %}
+
+        {% if error_message %}
+          <div class="error-message">{{ error_message }}</div>
+        {% endif %}
+
+        <div class="form-group">
+          <label for="operator_id">Operator ID:</label>
+          <input type="text" id="operator_id" name="operator_id" value="{{ operator_id }}" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" value="{{ email }}" required>
+        </div>
+        <div class="form-group">
+          <label for="first_name">First Name:</label>
+          <input type="text" id="first_name" name="first_name" value="{{ first_name }}" required>
+        </div>
+        <div class="form-group">
+          <label for="last_name">Last Name:</label>
+          <input type="text" id="last_name" name="last_name" value="{{ last_name }}" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="text" id="password" name="password" value="{{ password }}" required>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="save-button">Save Changes</button>
+          <a href="/update_operator" class="cancel-button">Cancel</a>
+        </div>
       </form>
-
-      {% if operators %}
-        <h2>Search Results:</h2>
-        <ul>
-          {% for operator in operators %}
-            <li>
-              {{ operator[1] }} {{ operator[2] }} (ID: {{ operator[0] }})
-              <form method="POST" action="/delete_operator_confirm">
-                <input type="hidden" name="operator_id" value="{{ operator[0] }}">
-                <button type="submit">Delete</button>
-              </form>
-            </li>
-          {% endfor %}
-        </ul>
-      {% endif %}
-
-      {% if error %}
-        <p class="error-message">{{ error }}</p>
-      {% endif %}
     </div>
   </div>
 

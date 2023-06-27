@@ -70,9 +70,10 @@
     .button-container {
       display: flex;
       flex-direction: row;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
       margin-top: 250px;
+      flex-wrap: wrap;
     }
 
     .button {
@@ -173,9 +174,14 @@
     <div class="button" onclick="window.location.href='add_operator'">
       <div class="button-text">Add Operator</div>
       <div class="button-description">Click here to add a new operator to the system.
-        Provide the required information, such as name, and contact details, to create a new operator account.</div>
+        Provide the required information, such as name and contact details, to create a new operator account.</div>
+    </div>
+    <div class="button" onclick="window.location.href='update_operator'">
+      <div class="button-text">Update Operator</div>
+      <div class="button-description">Click here to update an existing operator's information.
+        Update details such as name, contact information</div>
     </div>
   </div>
-<button onclick="window.location.href='{{ url_for('admin') }}'" class="back-button">Back</button>
+  <button onclick="window.location.href='{{ url_for('admin') }}'" class="back-button">Back</button>
 </body>
 </html>

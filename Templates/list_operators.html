@@ -84,6 +84,45 @@
       border-radius: 5px;
       text-decoration: none;
     }
+
+    .operator-details {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .operator-details h2 {
+      margin-bottom: 20px;
+    }
+
+    .operator-table {
+      width: 60%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    .operator-table th,
+    .operator-table td {
+      padding: 10px;
+      border: 1px solid black;
+    }
+
+    .operator-table th {
+      background-color: black;
+      color: white;
+      font-weight: bold;
+      text-align: left;
+    }
+
+    .operator-table tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    .operator-table tr:hover {
+      background-color: #ddd;
+    }
   </style>
 </head>
 <body>
@@ -100,8 +139,29 @@
     </div>
   </div>
 
+  <div class="operator-details">
+    <h2>Operator Details</h2>
+    <table class="operator-table">
+      <tr>
+        <th>Operator ID</th>
+        <th>Email</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <!-- Add more table headers for additional columns if needed -->
+      </tr>
+      {% for operator in operators %}
+      <tr>
+        <td>{{ operator[0] }}</td>
+        <td>{{ operator[1] }}</td>
+        <td>{{ operator[2] }}</td>
+        <td>{{ operator[3] }}</td>
+        <!-- Add more table cells for additional columns if needed -->
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
 
-  <button onclick="history.back()" class="back-button">Back</button>
+  <button onclick="window.location.href='{{ url_for('manage_operator') }}'" class="back-button">Back</button>
 
 </body>
 </html>
