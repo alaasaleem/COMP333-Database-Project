@@ -1,0 +1,6 @@
+SELECT movie.movie_code, movie.title, show_time.start_time, show_time.end_time, hall.hall_number
+FROM movie
+JOIN MovieShowtime ON movie.movie_code = MovieShowtime.movie_code
+JOIN show_time ON MovieShowtime.showtime_NO = show_time.showtime_NO
+JOIN HallShowtime ON MovieShowtime.showtime_NO = HallShowtime.showtime_NO
+JOIN hall ON HallShowtime.hall_number = hall.hall_number;
