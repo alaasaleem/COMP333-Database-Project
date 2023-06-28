@@ -50,8 +50,8 @@ CREATE TABLE `bookingsystem`.`seat` (
   
 CREATE TABLE `bookingsystem`.`showtime` (
   `showtime_NO` INT NOT NULL AUTO_INCREMENT,
-  `start_time` double NOT NULL,
-  `end_time` double NOT NULL,
+  `start_time` VARCHAR(10) NOT NULL,
+  `end_time` VARCHAR(10) NOT NULL,
   PRIMARY KEY (`showtime_NO`));
 
 CREATE TABLE `bookingsystem`.`HallShowtime` (
