@@ -7,17 +7,6 @@ CREATE TABLE `bookingsystem`.`user` (
   PRIMARY KEY (`USER_ID`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE);
   
-
-CREATE TABLE `bookingsystem`.`ticket` (
-  `ticket_No` INT NOT NULL AUTO_INCREMENT,
-  `reservation_status` VARCHAR(45) NOT NULL,
-  `ticket_price` int NOT NULL,
-  `movie_title` VARCHAR(45) NOT NULL,
-  `hall_number` int NOT NULL,
-  `seat_number` int NOT NULL,
-  PRIMARY KEY (`ticket_No`));
-  
-  
   CREATE TABLE `bookingsystem`.`hall` (
   `hall_number` INT NOT NULL ,
   `capacity` int NOT NULL,
@@ -48,18 +37,12 @@ CREATE TABLE `bookingsystem`.`seat` (
   PRIMARY KEY (`Operator_ID`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE);
   
-CREATE TABLE `bookingsystem`.`showtime` (
+CREATE TABLE `bookingsystem`.`show_time` (
   `showtime_NO` INT NOT NULL AUTO_INCREMENT,
   `start_time` VARCHAR(10) NOT NULL,
   `end_time` VARCHAR(10) NOT NULL,
   PRIMARY KEY (`showtime_NO`));
 
-CREATE TABLE `bookingsystem`.`HallShowtime` (
-  `showtime_NO` INT NOT NULL ,
-  `hall_number` INT NOT NULL ,
-  PRIMARY KEY (`showtime_NO`, `hall_number`),
-  FOREIGN KEY (`showtime_NO`) REFERENCES `show_time` (`showtime_NO`),
-  FOREIGN KEY (`hall_number`) REFERENCES `hall` (`hall_number`));  
   
   
 CREATE TABLE `bookingsystem`.`movie` (
@@ -69,6 +52,15 @@ CREATE TABLE `bookingsystem`.`movie` (
   `rating` VARCHAR(45) NOT NULL,
   `run_time` double NOT NULL,
   PRIMARY KEY ( `movie_code`));
+  
+  
+CREATE TABLE `bookingsystem`.`ticket` (
+  `ticket_No` INT NOT NULL AUTO_INCREMENT,
+  `movie_code` VARCHAR(45) NOT NULL,
+  `reservation_status` VARCHAR(45) NOT NULL,
+  `ticket_price` int NOT NULL,
+  PRIMARY KEY (`ticket_No` , `movie_code`),
+  FOREIGN KEY (`movie_code`) REFERENCES `movie` (`movie_code`)) ;
   
   CREATE TABLE `bookingsystem`.`MovieShowtime` (
   `showtime_NO` INT NOT NULL ,
@@ -83,6 +75,13 @@ CREATE TABLE `bookingsystem`.`MovieTicket` (
   PRIMARY KEY (`movie_code`, `ticket_No`),
   FOREIGN KEY (`movie_code`) REFERENCES `movie` (`movie_code`),
   FOREIGN KEY (`ticket_No`) REFERENCES `ticket` (`ticket_No`));
+  
+CREATE TABLE `bookingsystem`.`HallShowtime` (
+  `showtime_NO` INT NOT NULL ,
+  `hall_number` INT NOT NULL ,
+  PRIMARY KEY (`showtime_NO`, `hall_number`),
+  FOREIGN KEY (`showtime_NO`) REFERENCES `show_time` (`showtime_NO`),
+  FOREIGN KEY (`hall_number`) REFERENCES `hall` (`hall_number`));  
   
   
   
