@@ -37,7 +37,7 @@ CREATE TABLE `bookingsystem`.`seat` (
   PRIMARY KEY (`Operator_ID`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE);
   
-CREATE TABLE `bookingsystem`.`show_time` (
+CREATE TABLE `bookingsystem`.`showtime` (
   `showtime_NO` INT NOT NULL AUTO_INCREMENT,
   `start_time` VARCHAR(10) NOT NULL,
   `end_time` VARCHAR(10) NOT NULL,
