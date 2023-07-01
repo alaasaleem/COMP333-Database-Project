@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Website</title>
+  <style>
+    /* Basic CSS Reset */
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Body Styles */
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #d3d3d3;
+      margin: 0;
+    }
+
+    .menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 70px;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+
+    .leftmenu {
+      display: flex;
+      align-items: center;
+    }
+
+    .leftmenu img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .leftmenu a {
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+      margin-left: 20px;
+    }
+
+    .leftmenu a:hover {
+      color: gray;
+    }
+
+    .rightmenu a {
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+      margin-left: 20px;
+    }
+
+    .rightmenu a:hover {
+      color: gray;
+    }
+
+    .back-button {
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+      background-color: black;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+
+    .logout-button {
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+
+    .operator-details {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .operator-details h2 {
+      margin-bottom: 20px;
+    }
+
+    .operator-table {
+      width: 60%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    .operator-table th,
+    .operator-table td {
+      padding: 10px;
+      border: 1px solid black;
+    }
+
+    .operator-table th {
+      background-color: black;
+      color: white;
+      font-weight: bold;
+      text-align: left;
+    }
+
+    .operator-table tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    .operator-table tr:hover {
+      background-color: #ddd;
+    }
+  </style>
+</head>
+<body>
+  <div class="menu">
+    <div class="leftmenu">
+      <a href="{{ url_for('admin') }}">
+        <img src="https://scontent.ftlv11-1.fna.fbcdn.net/v/t39.30808-6/327039226_911448670208477_2572797240868318650_n.jpg?_nc_cat=107&cb_f2e=test&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=5Sl5v1-889sAX-1ALSu&_nc_ht=scontent.ftlv11-1.fna&oh=00_AfDN_umwoFXkv-8rgT3qYrFSWDvHDakKIzcTrNhKtBOtug&oe=649B82AB" alt="Logo">
+      </a>
+      <a href="{{ url_for('manage_operator') }}">Operators</a>
+      <a href="{{ url_for('manage_reports') }}">Reports</a>
+    </div>
+    <div class="rightmenu">
+      <a href="{{ url_for('login') }}" class="logout-button">Logout</a>
+    </div>
+  </div>
+
+  <div class="operator-details">
+    <h2>Operator Details</h2>
+    <table class="operator-table">
+      <tr>
+        <th>Operator ID</th>
+        <th>Email</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <!-- Add more table headers for additional columns if needed -->
+      </tr>
+      {% for operator in operators %}
+      <tr>
+        <td>{{ operator[0] }}</td>
+        <td>{{ operator[1] }}</td>
+        <td>{{ operator[2] }}</td>
+        <td>{{ operator[3] }}</td>
+        <!-- Add more table cells for additional columns if needed -->
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+
+  <button onclick="window.location.href='{{ url_for('manage_operator') }}'" class="back-button">Back</button>
+
+</body>
+</html>
