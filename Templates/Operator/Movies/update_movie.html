@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Operator Website</title>
+  <style>
+    /* Basic CSS Reset */
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Body Styles */
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #d3d3d3;
+      margin: 0;
+    }
+
+    .menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 70px;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+
+    .leftmenu {
+      display: flex;
+      align-items: center;
+    }
+
+    .leftmenu img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .leftmenu a {
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+      margin-left: 20px;
+    }
+
+    .leftmenu a:hover {
+      color: gray;
+    }
+
+    .rightmenu a {
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+      margin-left: 20px;
+    }
+
+    .rightmenu a:hover {
+      color: gray;
+    }
+
+    .back-button {
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+      background-color: black;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+
+    .logout-button {
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+
+    /* Center the form on the page */
+
+    .form-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    /* Style the form elements */
+
+    .card {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      width: 400px;
+    }
+
+    .card h2 {
+      text-align: center;
+      margin-bottom: 5px;
+      color: #000;
+    }
+
+    .card form {
+      margin-bottom: 20px;
+    }
+
+    .card label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 10px;
+      color: #666;
+    }
+
+    .card input[type="text"],
+    .card input[type="email"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .card input[type="submit"] {
+      background-color: black;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .card input[type="submit"]:hover {
+      background-color: #333;
+    }
+
+    .card a.cancel-button {
+      display: inline-block;
+      background-color: black;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 5px;
+      text-decoration: none;
+      margin-right: 10px;
+    }
+
+    .success-message {
+      color: green;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .error-message {
+      color: red;
+      margin-bottom: 10px;
+    }
+
+    .text {
+      background-color: transparent;
+      padding: 4rem 1rem;
+      text-align: center;
+    }
+
+    .text h2 {
+      color: #000;
+      margin-bottom: 1.5rem;
+      font-size: 40px;
+      text-align: left;
+    }
+
+    .text p {
+      color: hsl(217, 10%, 50.8%);
+      text-align: left;
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .search-form {
+      margin-bottom: 20px;
+    }
+
+    .search-form label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .search-form input[type="text"] {
+      width: 300px;
+      padding: 10px;
+      font-size: 16px;
+      margin-right: 10px;
+      border: 1px solid #ccc;
+      color: gray;
+    }
+
+    .search-form button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: black;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: center;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    li button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: black;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .save-button {
+      background-color: black;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="menu">
+    <div class="leftmenu">
+      <a href="{{ url_for('operator') }}">
+        <img src="https://scontent.ftlv11-1.fna.fbcdn.net/v/t39.30808-6/327039226_911448670208477_2572797240868318650_n.jpg?_nc_cat=107&cb_f2e=test&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=5Sl5v1-889sAX-1ALSu&_nc_ht=scontent.ftlv11-1.fna&oh=00_AfDN_umwoFXkv-8rgT3qYrFSWDvHDakKIzcTrNhKtBOtug&oe=649B82AB" alt="Logo">
+      </a>
+      <a href="{{ url_for('schedule_showtimes') }}">Showtimes</a>
+      <a href="{{ url_for('manage_movies') }}">Movies</a>
+      <a href="{{ url_for('assign_movie') }}">Assign Movies</a>
+    </div>
+    <div class="rightmenu">
+      <a href="{{ url_for('login') }}" class="logout-button">Logout</a>
+    </div>
+  </div>
+
+  <div class="form-container">
+    <div class="card">
+<form method="POST" action="/update_movie">
+  <h2>Update Movie</h2>
+  {% if success_message %}
+    <div class="success-message">{{ success_message }}</div>
+  {% endif %}
+  {% if error_message %}
+    <div class="error-message">{{ error_message }}</div>
+  {% endif %}
+  <div class="form-group">
+    <label for="movie_code">Movie Code:</label>
+    <input type="text" id="movie_code" name="movie_code" value="{{ movie_code }}" required>
+  </div>
+  <div class="form-group">
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" value="{{ title }}" required>
+  </div>
+  <div class="form-group">
+    <label for="genre">Genre:</label>
+    <input type="text" id="genre" name="genre" value="{{ genre }}" required>
+  </div>
+  <div class="form-group">
+    <label for="rating">Rating:</label>
+    <input type="text" id="rating" name="rating" value="{{ rating }}" required>
+  </div>
+  <div class="form-group">
+    <label for="run_time">Run Time:</label>
+    <input type="text" id="run_time" name="run_time" value="{{ run_time }}" required>
+  </div>
+  <div class="form-group">
+    <button type="submit" class="save-button">Save Changes</button>
+    <a href="/update_movie" class="cancel-button">Cancel</a>
+  </div>
+</form>
+    </div>
+  </div>
+
+  <button onclick="window.location.href='{{ url_for('manage_movies') }}'" class="back-button">Back</button>
+
+</body>
+</html>
