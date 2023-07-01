@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>USER Website</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+     .text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-transform: uppercase;
+      text-align: center;
+      color: white;
+      animation: fade-in 1s ease;
+    }
+
+    .text h4 {
+      font-size: 14px;
+      font-family: 'open sans', sans-serif;
+    }
+
+    .text h1 {
+      font-size: 62px;
+      font-family: 'montserrat', sans-serif;
+      font-weight: 700;
+      margin: 14px 0px;
+    }
+
+    .text h3 {
+      font-size: 15px;
+      font-family: 'open sans', sans-serif;
+    }
+
+
+    /* Body Styles */
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #d3d3d3;
+      margin: 0;
+    }
+
+    .menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 70px;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+
+    .leftmenu {
+      display: flex;
+      align-items: center;
+    }
+
+    .leftmenu img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .leftmenu a {
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+      margin-left: 20px;
+    }
+
+    .leftmenu a:hover {
+      color: gray;
+    }
+
+    .rightmenu a {
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+      margin-left: 20px;
+    }
+
+    .rightmenu a:hover {
+      color: gray;
+    }
+
+    .logout-button {
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+
+    @keyframes fade-in {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="menu">
+    <div class="leftmenu">
+      <a href="{{ url_for('admin') }}">
+        <img src="https://scontent.ftlv11-1.fna.fbcdn.net/v/t39.30808-6/327039226_911448670208477_2572797240868318650_n.jpg?_nc_cat=107&cb_f2e=test&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=5Sl5v1-889sAX-1ALSu&_nc_ht=scontent.ftlv11-1.fna&oh=00_AfDN_umwoFXkv-8rgT3qYrFSWDvHDakKIzcTrNhKtBOtug&oe=649B82AB" alt="Logo">
+      </a>
+      <a href="{{ url_for('manage_operator') }}">Operators</a>
+      <a href="{{ url_for('manage_reports') }}">Reports</a>
+    </div>
+    <div class="rightmenu">
+      <a href="{{ url_for('login') }}" class="logout-button">Logout</a>
+    </div>
+  </div>
+    <div class="text">
+      <h3>WELCOME TO</h3>
+      <h1>Palestine Tower Cinemas</h1>
+      <h3>USER PANEL</h3>
+    </div>
+</body>
+</html>
