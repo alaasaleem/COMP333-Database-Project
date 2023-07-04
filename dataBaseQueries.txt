@@ -1,0 +1,111 @@
+//Inserting
+NSERT INTO `bookingsystem`.`showtime_hall` (`showtime_id`, `hall_id`) VALUES ('1', '1');
+INSERT INTO `bookingsystem`.`showtime_hall` (`showtime_id`, `hall_id`) VALUES ('2', '3');
+INSERT INTO `bookingsystem`.`showtime_hall` (`showtime_id`, `hall_id`) VALUES ('3', '2');
+INSERT INTO `bookingsystem`.`showtime_hall` (`showtime_id`, `hall_id`) VALUES ('4', '1');
+INSERT INTO `bookingsystem`.`showtime_hall` (`showtime_id`, `hall_id`) VALUES ('5', '3');
+
+UPDATE `bookingsystem`.`hall` SET `HallNo` = '3', `Capacity` = '150' WHERE (`HallNo` = '3');
+UPDATE `bookingsystem`.`hall` SET `HallNo` = '1', `Capacity` = '240' WHERE (`HallNo` = '1');
+UPDATE `bookingsystem`.`hall` SET `HallNo` = '2', `Capacity` = '260' WHERE (`HallNo` = '2');
+
+INSERT INTO `bookingsystem`.`movie` (`MovieCode`, `MTitle`, `Genre`, `Rating`, `RunTime`) VALUES ('SW19', 'StarWars2019', 'science fiction and fantasy', '8.2', '2');
+INSERT INTO `bookingsystem`.`movie` (`MovieCode`, `MTitle`, `Genre`, `Rating`, `RunTime`) VALUES ('HG18', 'HungerGames2018', 'PG13', '9', '1.50');
+
+INSERT INTO `bookingsystem`.`movie_showtime` (`movie_id`, `showtime_id`) VALUES ('HG18', '3');
+
+
+//Creating Tables
+CREATE TABLE admin_operator (
+    admin_id INT,
+    operator_id INT,
+    PRIMARY KEY (admin_id, operator_id),
+    FOREIGN KEY (admin_id) REFERENCES `bookingsystem`.`admin`(Admin_ID),
+    FOREIGN KEY (operator_id) REFERENCES operator (Operator_ID)
+);
+CREATE TABLE operator_movie (
+    operator_id INT,
+    movie_id varchar(50),
+    PRIMARY KEY (operator_id, movie_id),
+	FOREIGN KEY (operator_id) REFERENCES operator (Operator_ID),
+    FOREIGN KEY (movie_id) REFERENCES movie (MovieCode)
+);
+
+CREATE TABLE ticket_movie (
+    ticket_id INT,
+    movie_id varchar(50),
+    PRIMARY KEY (ticket_id, movie_id),
+    FOREIGN KEY (ticket_id) REFERENCES ticket (TicketNo),
+    FOREIGN KEY (movie_id) REFERENCES movie (MovieCode)
+);
+CREATE TABLE movie_showtime (
+    movie_id  varchar(50),
+    showtime_id INT,
+    PRIMARY KEY (movie_id, showtime_id),
+    FOREIGN KEY (movie_id) REFERENCES movie (MovieCode),
+    FOREIGN KEY (showtime_id) REFERENCES showtime (ShowtimeNO)
+);
+CREATE TABLE showtime_hall (
+    showtime_id INT,
+    hall_id INT,
+    PRIMARY KEY (showtime_id, hall_id),
+    FOREIGN KEY (showtime_id) REFERENCES showtime (ShowtimeNO),
+    FOREIGN KEY (hall_id) REFERENCES hall (HallNo)
+);
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Queries
+SELECT `admin`.Admin_ID, o.operator_ID,o.first_name, m.Mtitle
+FROM `admin`
+JOIN admin_operator ao ON ao.admin_id = `admin`.Admin_ID
+JOIN operator o ON o.operator_ID = ao.operator_id
+JOIN operator_movie om ON om.movie_id=o.operator_ID
+JOIN movie m ON m.MovieCode=om.movie_id
+WHERE `admin`.Admin_ID =11;-- Replace <admin_id> with the ID of the specific admin we want to retrieve
+
+
+
+SELECT m.MovieCode, m.MTitle
+FROM movie m
+JOIN movie_showtime ms ON m.MovieCode = ms.movie_id
+JOIN showtime_hall sh ON ms.showtime_id = sh.showtime_id
+JOIN hall h ON sh.hall_id = h.HallNo
+WHERE m.Genre = 'PG13'
+AND h.HallNo = '3' ;
+
+
+SELECT h.HallNo
+FROM hall h
+WHERE h.HallNo NOT IN (
+    SELECT DISTINCT sh.hall_id
+    FROM showtime_hall sh
+    JOIN showtime s ON sh.showtime_id = s.ShowtimeNo
+    WHERE s.startTime = '3:00' 
+);
+
+
+SELECT m.MovieCode, m.MTitle, COUNT(TicketNo) AS TicketCount
+FROM movie m
+JOIN ticket_movie tm ON tm.movie_id = m.MovieCode
+JOIN ticket t ON t.TicketNo = tm.ticket_id
+GROUP BY m.MovieCode, m.MTitle
+ORDER BY TicketCount DESC;
+
+
+SELECT m.MovieCode, m.MTitle, s.ShowtimeNO, s.startTime, s.endTime
+FROM movie m
+JOIN movie_showtime ms ON m.MovieCode = ms.movie_id
+JOIN showtime s ON ms.showtime_id = s.ShowtimeNO
+GROUP BY m.MovieCode, m.MTitle, s.ShowtimeNO, s.StartTime, s.EndTime
+HAVING COUNT(ms.showtime_id) > 1;
+
+
+
+
+
+
+
+
+
+
+
+
