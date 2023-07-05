@@ -85,59 +85,45 @@
       text-decoration: none;
     }
 
-    /* Center the card on the page */
-
-    .card-container {
+     .scheduled-movie-details {
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
+      justify-content: center;
       height: 100vh;
     }
 
-    .card {
-      background-color: #fff;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      padding: 40px;
-      width: 400px;
-      margin: auto;
-    }
-
-    .card h1 {
-      text-align: center;
-      margin-bottom: 10px;
-      color: #000;
-    }
-
-    .card form {
+    .scheduled-movie-details h2 {
       margin-bottom: 20px;
     }
 
-    .card label {
-      font-weight: bold;
-      display: block;
-      margin-bottom: 10px;
-      color: #666;
+    .scheduled-movie-table {
+      width: 60%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
     }
 
-    .card input[type="text"],
-    .card input[type="password"] {
-      width: 100%;
+    .scheduled-movie-table th,
+    .scheduled-movie-table td {
       padding: 10px;
-      margin-bottom: 20px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
+      border: 1px solid black;
     }
 
-    .card button[type="submit"] {
-      background-color: #000;
+    .scheduled-movie-table th {
+      background-color: black;
       color: white;
-      padding: 10px 15px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      width: 100%;
+      font-weight: bold;
+      text-align: left;
     }
+
+    .scheduled-movie-tabletr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    .scheduled-movie-table tr:hover {
+      background-color: #ddd;
+    }
+
 
     .error-message {
       color: red;
@@ -165,7 +151,7 @@
   <div class="menu">
     <div class="leftmenu">
       <a href="{{ url_for('operator') }}">
-        <img src="https://scontent.ftlv11-1.fna.fbcdn.net/v/t39.30808-6/327039226_911448670208477_2572797240868318650_n.jpg?_nc_cat=107&cb_f2e=test&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=5Sl5v1-889sAX-1ALSu&_nc_ht=scontent.ftlv11-1.fna&oh=00_AfDN_umwoFXkv-8rgT3qYrFSWDvHDakKIzcTrNhKtBOtug&oe=649B82AB" alt="Logo">
+                <img src="https://scontent.ftlv11-1.fna.fbcdn.net/v/t39.30808-6/327039226_911448670208477_2572797240868318650_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=dOtWCfobv5IAX-nYn9T&_nc_ht=scontent.ftlv11-1.fna&oh=00_AfByxMch3zzj3R8rzKnaKEmUd-GNhrafcf2sJOLo33U84g&oe=64AB54AB" alt="Logo">
       </a>
       <a href="{{ url_for('schedule_showtimes') }}">Showtimes</a>
       <a href="{{ url_for('manage_movies') }}">Movies</a>
@@ -174,6 +160,27 @@
     <div class="rightmenu">
       <a href="{{ url_for('login') }}" class="logout-button">Logout</a>
     </div>
+  </div>
+    <div class="scheduled-movie-details">
+    <h2>Scheduled Movies Details</h2>
+    <table class="scheduled-movie-table">
+      <tr>
+        <th>Movie Code</th>
+        <th>Movie Title</th>
+        <th>Hall Number</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+      </tr>
+      {% for scheduled_movie in scheduled_movies %}
+      <tr>
+        <td>{{ scheduled_movie[0] }}</td>
+        <td>{{ scheduled_movie[1] }}</td>
+        <td>{{ scheduled_movie[2] }}</td>
+        <td>{{ scheduled_movie[3] }}</td>
+        <td>{{ scheduled_movie[4] }}</td>
+      </tr>
+      {% endfor %}
+    </table>
   </div>
 
   <button onclick="window.location.href='{{ url_for('assign_movie') }}'" class="back-button">Back</button>
