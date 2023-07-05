@@ -85,14 +85,16 @@
       text-decoration: none;
     }
 
-    /* Center the card on the page */
+    /* Center the form on the page */
 
-    .card-container {
+    .form-container {
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
     }
+
+    /* Style the form elements */
 
     .card {
       background-color: #fff;
@@ -100,12 +102,11 @@
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       padding: 40px;
       width: 400px;
-      margin: auto;
     }
 
-    .card h1 {
+    .card h2 {
       text-align: center;
-      margin-bottom: 10px;
+      margin-bottom: 5px;
       color: #000;
     }
 
@@ -121,7 +122,7 @@
     }
 
     .card input[type="text"],
-    .card input[type="password"] {
+    .card input[type="email"] {
       width: 100%;
       padding: 10px;
       margin-bottom: 20px;
@@ -129,8 +130,8 @@
       border: 1px solid #ccc;
     }
 
-    .card button[type="submit"] {
-      background-color: #000;
+    .card input[type="submit"] {
+      background-color: black;
       color: white;
       padding: 10px 15px;
       border: none;
@@ -139,25 +140,113 @@
       width: 100%;
     }
 
-    .error-message {
-      color: red;
-      margin-top: 10px;
+    .card input[type="submit"]:hover {
+      background-color: #333;
+    }
+
+    .card a.cancel-button {
+      display: inline-block;
+      background-color: black;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 5px;
+      text-decoration: none;
+      margin-right: 10px;
     }
 
     .success-message {
       color: green;
-      margin-top: 10px;
+      margin-bottom: 10px;
+      text-align: center;
     }
 
-    .back-button {
-      position: fixed;
-      bottom: 10px;
-      left: 10px;
+    .error-message {
+      color: red;
+      margin-bottom: 10px;
+    }
+
+    .text {
+      background-color: transparent;
+      padding: 4rem 1rem;
+      text-align: center;
+    }
+
+    .text h2 {
+      color: #000;
+      margin-bottom: 1.5rem;
+      font-size: 40px;
+      text-align: left;
+    }
+
+    .text p {
+      color: hsl(217, 10%, 50.8%);
+      text-align: left;
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .search-form {
+      margin-bottom: 20px;
+    }
+
+    .search-form label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .search-form input[type="text"] {
+      width: 300px;
+      padding: 10px;
+      font-size: 16px;
+      margin-right: 10px;
+      border: 1px solid #ccc;
+      color: gray;
+    }
+
+    .search-form button {
+      padding: 10px 20px;
+      font-size: 16px;
       background-color: black;
       color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: center;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    li button {
       padding: 10px 20px;
+      font-size: 16px;
+      background-color: black;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .save-button {
+      background-color: black;
+      color: white;
+      padding: 10px 15px;
       border-radius: 5px;
-      text-decoration: none;
+      border: none;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -165,7 +254,7 @@
   <div class="menu">
     <div class="leftmenu">
       <a href="{{ url_for('operator') }}">
-        <img src="https://scontent.ftlv11-1.fna.fbcdn.net/v/t39.30808-6/327039226_911448670208477_2572797240868318650_n.jpg?_nc_cat=107&cb_f2e=test&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=5Sl5v1-889sAX-1ALSu&_nc_ht=scontent.ftlv11-1.fna&oh=00_AfDN_umwoFXkv-8rgT3qYrFSWDvHDakKIzcTrNhKtBOtug&oe=649B82AB" alt="Logo">
+        <img src="https://scontent.ftlv11-1.fna.fbcdn.net/v/t39.30808-6/327039226_911448670208477_2572797240868318650_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=dOtWCfobv5IAX-nYn9T&_nc_ht=scontent.ftlv11-1.fna&oh=00_AfByxMch3zzj3R8rzKnaKEmUd-GNhrafcf2sJOLo33U84g&oe=64AB54AB" alt="Logo">
       </a>
       <a href="{{ url_for('schedule_showtimes') }}">Showtimes</a>
       <a href="{{ url_for('manage_movies') }}">Movies</a>
@@ -176,6 +265,37 @@
     </div>
   </div>
 
+  <div class="form-container">
+    <div class="card">
+<form method="POST" action="/update_scheduled_movie">
+  <h2>Update Scheduled Movie</h2>
+  {% if success_message %}
+    <div class="success-message">{{ success_message }}</div>
+  {% endif %}
+  {% if error_message %}
+    <div class="error-message">{{ error_message }}</div>
+  {% endif %}
+  <div class="form-group">
+    <label for="movie_code">Movie Code:</label>
+    <input type="text" id="movie_code" name="movie_code" value="{{ movie_code }}" required>
+  </div>
+  <div class="form-group">
+    <label for="showtime_NO">Showtime NO.:</label>
+    <input type="text" id="showtime_NO" name="showtime_NO" value="{{ showtime_NO }}" required>
+  </div>
+  <div class="form-group">
+    <label for="hall_number">Hall Number:</label>
+    <input type="text" id="hall_number" name="hall_number" value="{{ hall_number }}" required>
+  </div>
+  <div class="form-group">
+    <button type="submit" class="save-button">Save Changes</button>
+    <a href="/update_scheduled_movie" class="cancel-button">Cancel</a>
+  </div>
+</form>
+    </div>
+  </div>
+
   <button onclick="window.location.href='{{ url_for('assign_movie') }}'" class="back-button">Back</button>
+
 </body>
 </html>
