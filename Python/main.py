@@ -1,5 +1,7 @@
 import mysql
-from flask import Flask, render_template, request, redirect, jsonify
+from flask import Flask, render_template, request, redirect
+
+from delete_scheduled_movie import delete_scheduled_movie_func
 from login_register import validate_login, register_user
 from delete_operator import find_operator, delete_operator
 from add_operator import add_operator
@@ -12,9 +14,11 @@ from update_movie import update_movie, find_movie
 from add_showtime import add_showtime
 from delete_showtime import delete_showtime
 from list_showtimes import list_showtimes
+from update_scheduled_movie import update_scheduled_movie
 from update_showtime import update_showtime, find_showtime_by_NO
 from add_scheduled_movie import check_movie_exist, check_showtime_exist, check_record_exist,\
     check_hall_exist, check_showtime_overlap, insert_hall_showtime, insert_movie_showtime, get_showtime_end_time, get_showtime_start_time
+from list_scheduled_movies import list_schedule_of_movies
 
 app = Flask(__name__)
 
@@ -354,16 +358,80 @@ def add_scheduled_movie():
 
     return render_template('add_scheduled_movie.html')
 
-@app.route('/delete_scheduled_movie')
+@app.route('/delete_scheduled_movie', methods=['GET', 'POST'])
 def delete_scheduled_movie():
+    if request.method == 'POST':
+        movie_code = request.form['movie_code']
+        showtime_NO = request.form['showtime_NO']
+        hall_number = request.form['hall_number']
+
+        if not check_movie_exist(movie_code):
+            error_message = "Movie does not exist."
+            return render_template('delete_scheduled_movie.html', error_message=error_message)
+
+        if not check_showtime_exist(showtime_NO):
+            error_message = "Showtime does not exist."
+            return render_template('delete_scheduled_movie.html', error_message=error_message)
+
+        if not check_hall_exist(hall_number):
+            error_message = "Hall does not exist."
+            return render_template('delete_scheduled_movie.html', error_message=error_message)
+
+        if not check_record_exist(movie_code, showtime_NO, hall_number):
+            error_message = "Record does not exists."
+            return render_template('delete_scheduled_movie.html', error_message=error_message)
+
+        if delete_scheduled_movie_func(movie_code, showtime_NO, hall_number):
+            success_message = "Scheduled movie deleted successfully."
+            return render_template('delete_scheduled_movie.html', success_message=success_message)
+
     return render_template('delete_scheduled_movie.html')
 
 @app.route('/list_scheduled_movies')
 def list_scheduled_movies():
-    return render_template('list_scheduled_movies.html')
+    scheduled_movies = list_schedule_of_movies()
+    return render_template('list_scheduled_movies.html', scheduled_movies=scheduled_movies)
 
-@app.route('/update_scheduled_movie')
-def update_scheduled_movie():
+@app.route('/update_scheduled_movie', methods=['GET', 'POST'])
+def update_scheduled_movie_route():
+    if request.method == 'POST':
+        movie_code = request.form['movie_code']
+        showtime_NO = request.form['showtime_NO']
+        hall_number = request.form['hall_number']
+
+        # Retrieve start time and end time based on the showtime number
+        start_time = get_showtime_start_time(showtime_NO)
+        end_time = get_showtime_end_time(showtime_NO)
+
+        if not check_movie_exist(movie_code):
+            error_message = "Movie does not exist."
+            return render_template('update_scheduled_movie.html', error_message=error_message)
+
+        if not check_showtime_exist(showtime_NO):
+            error_message = "Showtime does not exist."
+            return render_template('update_scheduled_movie.html', error_message=error_message)
+
+        if not check_hall_exist(hall_number):
+            error_message = "Hall does not exist."
+            return render_template('update_scheduled_movie.html', error_message=error_message)
+
+        if check_record_exist(movie_code, showtime_NO, hall_number):
+            error_message = "Record already exists with this data you didn't update a thing."
+            return render_template('update_scheduled_movie.html', error_message=error_message)
+
+        if check_showtime_overlap(showtime_NO, hall_number, start_time, end_time):
+            error_message = "Showtime overlaps with an existing schedule for the same hall."
+            return render_template('update_scheduled_movie.html', error_message=error_message)
+
+        try:
+            update_scheduled_movie(movie_code, showtime_NO, hall_number)
+
+            success_message = "Record updated successfully."
+            return render_template('update_scheduled_movie.html', success_message=success_message)
+        except mysql.connector.errors.IntegrityError:
+            error_message = "The showtime for the hall already exists for another movie"
+            return render_template('update_scheduled_movie.html', error_message=error_message)
+
     return render_template('update_scheduled_movie.html')
 
 
