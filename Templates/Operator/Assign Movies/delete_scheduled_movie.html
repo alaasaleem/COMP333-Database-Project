@@ -165,7 +165,7 @@
   <div class="menu">
     <div class="leftmenu">
       <a href="{{ url_for('operator') }}">
-        <img src="https://scontent.ftlv11-1.fna.fbcdn.net/v/t39.30808-6/327039226_911448670208477_2572797240868318650_n.jpg?_nc_cat=107&cb_f2e=test&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=5Sl5v1-889sAX-1ALSu&_nc_ht=scontent.ftlv11-1.fna&oh=00_AfDN_umwoFXkv-8rgT3qYrFSWDvHDakKIzcTrNhKtBOtug&oe=649B82AB" alt="Logo">
+                <img src="https://scontent.ftlv11-1.fna.fbcdn.net/v/t39.30808-6/327039226_911448670208477_2572797240868318650_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=dOtWCfobv5IAX-nYn9T&_nc_ht=scontent.ftlv11-1.fna&oh=00_AfByxMch3zzj3R8rzKnaKEmUd-GNhrafcf2sJOLo33U84g&oe=64AB54AB" alt="Logo">
       </a>
       <a href="{{ url_for('schedule_showtimes') }}">Showtimes</a>
       <a href="{{ url_for('manage_movies') }}">Movies</a>
@@ -173,6 +173,30 @@
     </div>
     <div class="rightmenu">
       <a href="{{ url_for('login') }}" class="logout-button">Logout</a>
+    </div>
+  </div>
+    <div class="card-container">
+    <div class="card">
+      <h1>Delete Scheduled Movie</h1>
+
+      {% if error_message %}
+      <div class="error-message">{{ error_message }}</div>
+      {% endif %}
+      {% if success_message %}
+      <div class="success-message">{{ success_message }}</div>
+      {% endif %}
+      <form action="{{ url_for('delete_scheduled_movie') }}" method="POST">
+        <label for="movie_code">Movie Code:</label>
+        <input type="text" id="movie_code" name="movie_code" required>
+
+        <label for="showtime_NO">Showtime NO:</label>
+        <input type="text" id="showtime_NO" name="showtime_NO" required>
+
+        <label for="hall_number">Hall Number:</label>
+        <input type="text" id="hall_number" name="hall_number" required>
+
+        <button type="submit">Delete Scheduled Movie</button>
+      </form>
     </div>
   </div>
 
