@@ -50,7 +50,6 @@ def check_record_exist(movie_code, showtime_NO, hall_number):
     cursor.close()
     return existing_record is not None
 
-from datetime import datetime
 
 def check_showtime_overlap(showtime_NO, hall_number, start_time, end_time):
     cursor = db.cursor()
