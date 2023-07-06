@@ -282,7 +282,16 @@
       flex-wrap: wrap;
     }
 
-  </style>
+    .error-message {
+      color: red;
+      margin-top: 10px;
+    }
+
+    .success-message {
+      color: green;
+      margin-top: 10px;
+    }
+    </style>
 </head>
 <body>
   <div class="menu">
@@ -297,44 +306,38 @@
       <a href="{{ url_for('login') }}" class="logout-button">Logout</a>
     </div>
   </div>
-     <div class="text">
+<div class="container">
+  <div class="card">
+    {% if error_message %}
+    <div class="error-message">{{ error_message }}</div>
+    {% endif %}
+    {% if success_message %}
+    <div class="success-message">{{ success_message }}</div>
+    {% endif %}
+<form action="{{ url_for('booking_details') }}" method="POST">
+  <h2>Ticket For</h2>
+  <div class="radio-container">
+    <input type="radio" id="adults" name="ticket_type" value="adults" required>
+    <label for="adults">Adults</label>
+  </div>
+  <div class="radio-container">
+    <input type="radio" id="children" name="ticket_type" value="children" required>
+    <label for="children">Children (3-7 years)</label>
+  </div>
+  <h2>Type of Movie</h2>
+  <div class="radio-container">
+    <input type="radio" id="2d" name="movie_type" value="2d" required>
+    <label for="2d">2D</label>
+  </div>
+  <div class="radio-container">
+    <input type="radio" id="3d" name="movie_type" value="3d" required>
+    <label for="3d">3D</label>
+  </div>
+  <input type="submit" value="Submit">
+</form>
 
   </div>
-    <div class="container">
-    <div class="card">
-      <h2>Ticket For</h2>
-      <div class="radio-container">
-        <input type="radio" id="adults" name="ticket-type" value="adults">
-        <label for="adults">Adults</label>
-      </div>
-      <div class="radio-container">
-        <input type="radio" id="children" name="ticket-type" value="children">
-        <label for="children">Children (3-7 years)</label>
-      </div>
-    </div>
-    <div class="card">
-      <h2>Type of Movie</h2>
-      <div class="radio-container">
-        <input type="radio" id="2d" name="movie-type" value="2d">
-        <label for="2d">2D</label>
-      </div>
-        <div class="radio-container">
-          <input type="radio" id="3d" name="movie-type" value="3d">
-          <label for="3d">3D</label>
-        </div>
-      </div>
-      <button onclick="submitBooking()" class="submit-button">Submit</button>
-    </div>
-  </div>
+</div>
   <button onclick="window.location.href='{{ url_for('user') }}'" class="back-button">Back</button>
-  <script>
-    function submitBooking() {
-      // Retrieve the selected values
-      var ticketType = document.querySelector('input[name="ticket-type"]:checked').value;
-      var movieType = document.querySelector('input[name="movie-type"]:checked').value;
-      // Redirect to confirm_booking
-      window.location.href = "/confirm_booking";
-    }
-  </script>
 </body>
 </html>
