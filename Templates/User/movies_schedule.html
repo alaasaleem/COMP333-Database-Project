@@ -186,17 +186,19 @@
         <td>{{ scheduled_movie[2] }}</td>
         <td>{{ scheduled_movie[3] }}</td>
         <td>{{ scheduled_movie[4] }}</td>
-        <td><button class="book-now-button" onclick="bookNow('{{ scheduled_movie[0] }}')">Book Now</button></td>
+       <td><button class="book-now-button" onclick="bookNow('{{ scheduled_movie[0] }}')">Book Now</button></td>
+
+
       </tr>
       {% endfor %}
     </table>
   </div>
   <button onclick="window.location.href='{{ url_for('user') }}'" class="back-button">Back</button>
   <script>
-    function bookNow(movieCode) {
-      var bookingDetailsUrl = "/booking_details?movieCode=" + movieCode;
-      window.location.href = bookingDetailsUrl;
-    }
+function bookNow(movie_code) {
+  var bookingDetailsUrl = "/booking_details?movie_code=" + movie_code;
+  window.location.href = bookingDetailsUrl;
+}
   </script>
 </body>
 </html>
