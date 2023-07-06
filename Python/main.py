@@ -434,7 +434,22 @@ def update_scheduled_movie_route():
 
     return render_template('update_scheduled_movie.html')
 
+@app.route('/movies_schedule')
+def movies_schedule():
+    scheduled_movies = list_schedule_of_movies()
+    return render_template('movies_schedule.html', scheduled_movies=scheduled_movies)
 
+@app.route('/my_bookings')
+def my_bookings():
+    return render_template('my_bookings.html')
+
+@app.route('/booking_details')
+def booking_details():
+    return render_template('booking_details.html')
+
+@app.route('/confirm_booking')
+def confirm_booking():
+    return render_template('confirm_booking.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
