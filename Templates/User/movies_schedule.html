@@ -168,15 +168,8 @@
       <a href="{{ url_for('login') }}" class="logout-button">Logout</a>
     </div>
   </div>
-    <div class="scheduled-movie-details">
+  <div class="scheduled-movie-details">
     <h2>Scheduled Movies Details</h2>
-      <script>
-    function bookNow(movieCode) {
-      var bookingDetailsUrl = "/booking_details?movieCode=" + movieCode;
-      window.location.href = bookingDetailsUrl;
-    }
-</script>
-
     <table class="scheduled-movie-table">
       <tr>
         <th>Movie Code</th>
@@ -184,6 +177,7 @@
         <th>Hall Number</th>
         <th>Start Time</th>
         <th>End Time</th>
+        <th>Book Now</th>
       </tr>
       {% for scheduled_movie in scheduled_movies %}
       <tr>
@@ -197,7 +191,12 @@
       {% endfor %}
     </table>
   </div>
-
   <button onclick="window.location.href='{{ url_for('user') }}'" class="back-button">Back</button>
+  <script>
+    function bookNow(movieCode) {
+      var bookingDetailsUrl = "/booking_details?movieCode=" + movieCode;
+      window.location.href = bookingDetailsUrl;
+    }
+  </script>
 </body>
 </html>
