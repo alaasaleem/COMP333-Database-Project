@@ -1,6 +1,7 @@
 import mysql
 from flask import Flask, render_template, request, redirect
 
+from booking_details import calculate_ticket_price, db, insert_ticket
 from delete_scheduled_movie import delete_scheduled_movie_func
 from login_register import validate_login, register_user
 from delete_operator import find_operator, delete_operator
@@ -443,13 +444,30 @@ def movies_schedule():
 def my_bookings():
     return render_template('my_bookings.html')
 
-@app.route('/booking_details')
+@app.route('/booking_details', methods=['GET', 'POST'])
 def booking_details():
-    return render_template('booking_details.html')
+    movie_code = request.args.get('movie_code')
+    ticket_type = request.form.get('ticket_type')
+    movie_type = request.form.get('movie_type')
+    reservation_status = 'Reserved'
 
-@app.route('/confirm_booking')
-def confirm_booking():
-    return render_template('confirm_booking.html')
+    # Print the values for debugging
+    print('Ticket Type:', ticket_type)
+    print('Movie Type:', movie_type)
+    print('Movie Code:', movie_code)
+
+    try:
+        # Calculate ticket price based on ticket_type and movie_type
+        ticket_price = calculate_ticket_price(ticket_type, movie_type)
+        print('Ticket Price:', ticket_price)
+
+        insert_ticket(movie_code, reservation_status, ticket_price)
+        success_message = "Booking submitted successfully!"
+        return render_template('booking_details.html', success_message=success_message)
+    except mysql.connector.Error as e:
+        error_message = "An error occurred while submitting the booking."
+        print("MySQL Error:", str(e))  # Print the specific MySQL error
+        return render_template('booking_details.html', error_message=error_message)
 
 if __name__ == '__main__':
     app.run(debug=True)
