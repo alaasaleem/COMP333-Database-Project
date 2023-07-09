@@ -1,5 +1,7 @@
+import secrets
+
 import mysql
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session
 
 from booking_details import calculate_ticket_price, db, insert_ticket
 from delete_scheduled_movie import delete_scheduled_movie_func
@@ -7,6 +9,7 @@ from login_register import validate_login, register_user
 from delete_operator import find_operator, delete_operator
 from add_operator import add_operator
 from list_operators import list_operators
+from my_bookings import get_user_bookings
 from update_operator import update_operator
 from delete_movie import find_movie, delete_movie
 from add_movie import add_movie
@@ -23,7 +26,12 @@ from list_scheduled_movies import list_schedule_of_movies
 
 app = Flask(__name__)
 
-# Define a route for the login page
+# Generate a random secret key
+secret_key = secrets.token_hex(16)
+
+# Set the secret key for the Flask application
+app.secret_key = secret_key
+
 @app.route('/', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -33,10 +41,13 @@ def login():
         role = validate_login(email, password)
 
         if role == 'user':
+            session['user_email'] = email
             return redirect('/user')
         elif role == 'operator':
+            session['operator_email'] = email
             return redirect('/operator')
         elif role == 'admin':
+            session['admin_email'] = email
             return redirect('/admin')
         else:
             error = 'Invalid email or password. Please try again.'
@@ -47,21 +58,6 @@ def login():
 
     # Render the login page
     return render_template('login.html', error=error)
-
-# Define a route for the user page
-@app.route('/user')
-def user():
-    return render_template('user.html')
-
-# Define a route for the operator page
-@app.route('/operator')
-def operator():
-    return render_template('operator.html')
-
-# Define a route for the admin page
-@app.route('/admin')
-def admin():
-    return render_template('admin.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -77,10 +73,26 @@ def register():
             return render_template('register.html', error=error)
 
         # Redirect to a success page or perform further actions
+        session['user_email'] = email
         return redirect('/success')
 
     else:
         return render_template('register.html')
+
+# Define a route for the user page
+@app.route('/user')
+def user():
+    return render_template('user.html')
+
+# Define a route for the operator page
+@app.route('/operator')
+def operator():
+    return render_template('operator.html')
+
+# Define a route for the admin page
+@app.route('/admin')
+def admin():
+    return render_template('admin.html')
 
 
 # Define a route for the operator page
@@ -440,10 +452,6 @@ def movies_schedule():
     scheduled_movies = list_schedule_of_movies()
     return render_template('movies_schedule.html', scheduled_movies=scheduled_movies)
 
-@app.route('/my_bookings')
-def my_bookings():
-    return render_template('my_bookings.html')
-
 @app.route('/booking_details', methods=['GET', 'POST'])
 def booking_details():
     if request.method == 'POST':
@@ -451,6 +459,7 @@ def booking_details():
         ticket_type = request.form.get('ticket_type')
         movie_type = request.form.get('movie_type')
         reservation_status = 'Reserved'
+        user_email = session.get('user_email')  # Retrieve the user's email from the session
 
         # Print the values for debugging
         print('Ticket Type:', ticket_type)
@@ -458,6 +467,7 @@ def booking_details():
         print('Movie Code:', movie_code)
 
         try:
+
             # Check if the required fields are provided
             if ticket_type is None or movie_type is None:
                 error_message = "Please select the Ticket Type and Movie Type."
@@ -472,7 +482,7 @@ def booking_details():
             ticket_price = calculate_ticket_price(ticket_type, movie_type)
             print('Ticket Price:', ticket_price)
 
-            insert_ticket(movie_code, reservation_status, ticket_price)
+            insert_ticket(movie_code, reservation_status, ticket_price, user_email)
             success_message = "Booking submitted successfully!"
             return render_template('booking_details.html', success_message=success_message)
         except mysql.connector.Error as e:
@@ -482,7 +492,15 @@ def booking_details():
 
     return render_template('booking_details.html')
 
+@app.route('/my_bookings')
+def my_bookings():
+    user_email = session.get('user_email')  # Retrieve the user's email from the session
 
+    if user_email:
+        bookings = get_user_bookings(user_email)
+        return render_template('my_bookings.html', mybookings=bookings)
+    else:
+        return render_template('login.html', error='Please log in to view your bookings.')
 
 if __name__ == '__main__':
     app.run(debug=True)
