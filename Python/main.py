@@ -446,28 +446,43 @@ def my_bookings():
 
 @app.route('/booking_details', methods=['GET', 'POST'])
 def booking_details():
-    movie_code = request.args.get('movie_code')
-    ticket_type = request.form.get('ticket_type')
-    movie_type = request.form.get('movie_type')
-    reservation_status = 'Reserved'
+    if request.method == 'POST':
+        movie_code = request.form.get('movie_code')
+        ticket_type = request.form.get('ticket_type')
+        movie_type = request.form.get('movie_type')
+        reservation_status = 'Reserved'
 
-    # Print the values for debugging
-    print('Ticket Type:', ticket_type)
-    print('Movie Type:', movie_type)
-    print('Movie Code:', movie_code)
+        # Print the values for debugging
+        print('Ticket Type:', ticket_type)
+        print('Movie Type:', movie_type)
+        print('Movie Code:', movie_code)
 
-    try:
-        # Calculate ticket price based on ticket_type and movie_type
-        ticket_price = calculate_ticket_price(ticket_type, movie_type)
-        print('Ticket Price:', ticket_price)
+        try:
+            # Check if the required fields are provided
+            if ticket_type is None or movie_type is None:
+                error_message = "Please select the Ticket Type and Movie Type."
+                return render_template('booking_details.html', error_message=error_message)
 
-        insert_ticket(movie_code, reservation_status, ticket_price)
-        success_message = "Booking submitted successfully!"
-        return render_template('booking_details.html', success_message=success_message)
-    except mysql.connector.Error as e:
-        error_message = "An error occurred while submitting the booking."
-        print("MySQL Error:", str(e))  # Print the specific MySQL error
-        return render_template('booking_details.html', error_message=error_message)
+            # Check if the movie exists in the scheduled movies table
+            if not check_movie_exist(movie_code):
+                error_message = "The movie does not exist in the scheduled movies."
+                return render_template('booking_details.html', error_message=error_message)
+
+            # Calculate ticket price based on ticket_type and movie_type
+            ticket_price = calculate_ticket_price(ticket_type, movie_type)
+            print('Ticket Price:', ticket_price)
+
+            insert_ticket(movie_code, reservation_status, ticket_price)
+            success_message = "Booking submitted successfully!"
+            return render_template('booking_details.html', success_message=success_message)
+        except mysql.connector.Error as e:
+            error_message = "An error occurred while submitting the booking."
+            print("MySQL Error:", str(e))  # Print the specific MySQL error
+            return render_template('booking_details.html', error_message=error_message)
+
+    return render_template('booking_details.html')
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
